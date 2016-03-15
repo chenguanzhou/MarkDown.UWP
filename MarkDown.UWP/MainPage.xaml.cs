@@ -27,7 +27,6 @@ namespace MarkDown.UWP
         public MainPage()
         {
             this.InitializeComponent();
-            
         }
     }
 }

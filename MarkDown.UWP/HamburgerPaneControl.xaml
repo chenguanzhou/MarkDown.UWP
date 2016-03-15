@@ -27,7 +27,17 @@
                 <controls:HamburgerMenuButton.Icon>
                     <FontIcon FontSize="16" Glyph="&#xE8DA;" />
                 </controls:HamburgerMenuButton.Icon>
-            </controls:HamburgerMenuButton>            
+            </controls:HamburgerMenuButton>
+            <controls:HamburgerMenuButton Content="Save" Command="{Binding SaveCommand}">
+                <controls:HamburgerMenuButton.Icon>
+                    <FontIcon FontSize="16" Glyph="&#xE74E;" />
+                </controls:HamburgerMenuButton.Icon>
+            </controls:HamburgerMenuButton>
+            <controls:HamburgerMenuButton Content="Save As" Command="{Binding SaveAsCommand}">
+                <controls:HamburgerMenuButton.Icon>
+                    <FontIcon FontSize="16" Glyph="&#xE78C;" />
+                </controls:HamburgerMenuButton.Icon>
+            </controls:HamburgerMenuButton>
         </StackPanel>
 
         <controls:HamburgerMenuButton Grid.Row="2"  Content="Settings">

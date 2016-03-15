@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 //using MarkdownSharp;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -54,6 +55,39 @@ namespace MarkDown.UWP.ViewModel
 
         static public string AppName => loader.GetString("AppName");
 
+        public async Task BackUp()
+        {
+            JObject obj = new JObject();
+            obj["Content"] = Content;
+            obj["DocumentPath"] = DocumentPath;
+            obj["DocumentTitle"] = DocumentTitle;
+            obj["IsModified"] = IsModified;
+            
+
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile file = await localFolder.CreateFileAsync("BackUp.txt", CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, obj.ToString());
+        }
+
+        public async Task Restore()
+        {
+            try
+            {
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                StorageFile file = await localFolder.GetFileAsync("BackUp.txt");
+                var backup = await FileIO.ReadTextAsync(file);
+                JObject obj = JObject.Parse(backup);
+                Content = obj["Content"].ToString();
+                DocumentPath = obj["DocumentPath"].ToString();
+                DocumentTitle = obj["DocumentTitle"].ToString();
+                IsModified = (bool)obj["IsModified"];
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         public string Title => DocumentTitle + (IsModified ? "(*)" : "");
 
         public string documentTitle = loader.GetString("UntitledTitle");
@@ -64,6 +98,16 @@ namespace MarkDown.UWP.ViewModel
             {
                 Set(ref documentTitle, value);
                 RaisePropertyChanged("Title");
+            }
+        }
+
+        public string documentPath = "";
+        public string DocumentPath
+        {
+            get { return documentPath; }
+            set
+            {
+                Set(ref documentPath, value);
             }
         }
 
@@ -125,23 +169,34 @@ namespace MarkDown.UWP.ViewModel
             IsModified = false;
         });
 
-        public ICommand OpenCommand => new RelayCommand(async () => 
+
+        public async void OpenDoc(StorageFile file = null)
         {
-            var picker = new FileOpenPicker();
-            picker.ViewMode = PickerViewMode.List;
-            picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            picker.FileTypeFilter.Add(".md");
-            picker.FileTypeFilter.Add(".markdown");
-            var file = await picker.PickSingleFileAsync();
             if (file == null)
-                return;
+            {
+                var picker = new FileOpenPicker();
+                picker.ViewMode = PickerViewMode.List;
+                picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+                picker.FileTypeFilter.Add(".md");
+                picker.FileTypeFilter.Add(".markdown");
+                file = await picker.PickSingleFileAsync();
+                if (file == null)
+                    return;                
+            }
+
             var buffer = await FileIO.ReadBufferAsync(file);
             var encoder = SimpleHelpers.FileEncoding.DetectFileEncoding(buffer.AsStream(), Encoding.UTF8);
             var reader = new StreamReader(buffer.AsStream(), encoder);
 
             Content = reader.ReadToEnd().Replace("\r\n","\n");
+            DocumentPath = file.Path;
             DocumentTitle = file.Name;
             IsModified = false;
+        }
+
+        public ICommand OpenCommand => new RelayCommand(() => 
+        {
+            OpenDoc();
         });
     }
 }
