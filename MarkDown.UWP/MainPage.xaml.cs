@@ -1,5 +1,4 @@
-﻿using MarkdownSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,36 +25,6 @@ namespace MarkDown.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
-            MarkdownOptions option = new MarkdownOptions();
-            option.AutoHyperlink = true;
-            option.AutoNewlines = true;
-            option.LinkEmails = true;
-            option.StrictBoldItalic = false;
-
-            processor = new Markdown(option);
         }
-
-        private Markdown processor;
-
-        //private void WebView_ScriptNotify(object sender, NotifyEventArgs e)
-        //{
-        //    var src = e.Value;
-        //    var rawHTML = processor.Transform(src);            
-        //    preView.NavigateToString(rawHTML);
-        //}
-
-        //private async void ButtonOpen_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var picker = new FileOpenPicker();
-        //    picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.List;
-        //    picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-        //    picker.FileTypeFilter.Add(".md");
-        //    picker.FileTypeFilter.Add(".markdown");
-        //    var file = await picker.PickSingleFileAsync();
-        //    var buffer = await FileIO.ReadBufferAsync(file);
-        //    var reader = new StreamReader(buffer.AsStream());
-        //    var content = reader.ReadToEnd();
-        //}
     }
 }

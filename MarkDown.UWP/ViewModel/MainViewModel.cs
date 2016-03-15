@@ -1,5 +1,7 @@
+using CommonMark;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+//using MarkdownSharp;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Win32;
 using System;
@@ -9,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,8 +41,18 @@ namespace MarkDown.UWP.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            
+            //MarkdownOptions option = new MarkdownOptions();
+            //option.AutoHyperlink = true;
+            //option.AutoNewlines = true;
+            //option.LinkEmails = true;
+            //option.StrictBoldItalic = false;
+
+            //processor = new Markdown(option);
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
+
+        //Markdown processor;
 
         public override void Cleanup()
         {
@@ -54,8 +67,24 @@ namespace MarkDown.UWP.ViewModel
             {
                 if (content == value)
                     return;
-                content = value;
-                RaisePropertyChanged("Content");
+                Set(ref content, value);
+
+                using (var reader = new StringReader(content))
+                using (var writer = new StringWriter())
+                {
+                    CommonMarkConverter.Convert(reader, writer);
+                    PreviewHTML = writer.ToString();
+                }
+            }
+        }
+
+        private string previewHTML = "";
+        public string PreviewHTML
+        {
+            get { return previewHTML; }
+            set
+            {
+                Set(ref previewHTML, value);
             }
         }
 
@@ -70,7 +99,8 @@ namespace MarkDown.UWP.ViewModel
             if (file == null)
                 return;
             var buffer = await FileIO.ReadBufferAsync(file);
-            var reader = new StreamReader(buffer.AsStream());
+            var encoder = SimpleHelpers.FileEncoding.DetectFileEncoding(buffer.AsStream(), Encoding.UTF8);
+            var reader = new StreamReader(buffer.AsStream(), encoder);
 
             Content = reader.ReadToEnd();
         });
