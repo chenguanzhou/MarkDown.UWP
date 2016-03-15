@@ -64,9 +64,11 @@ namespace MarkDown.UWP
                 {
                     Header = new Cimbalino.Toolkit.Controls.HamburgerTitleBar()
                     {
-                        Title = "MarkDownEditor.UWP"
+                        Title = "MarkDown.UWP"
                     },
-                    Pane = new HamburgerPaneControl() { DataContext = ViewModelLocator.Main}
+                    Pane = new HamburgerPaneControl() { DataContext = ViewModelLocator.Main},
+                    OpenPaneLength = 200,
+                    IsPaneOpen = false
                 };
 
                 rootFrame.NavigationFailed += OnNavigationFailed;

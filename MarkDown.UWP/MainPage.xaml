@@ -9,12 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding Main,Source={StaticResource Locator}}"
     mc:Ignorable="d">
-    
-    <!--<Page.BottomAppBar>
-        <AppBar IsSticky="True" IsOpen="True">
-            <AppBarButton Name="ButtonOpen" Icon="OpenLocal" Label="Open" Click="ButtonOpen_Click"></AppBarButton>
-        </AppBar>
-    </Page.BottomAppBar>-->
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid>
@@ -23,9 +17,9 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <local:SourceEditor Grid.Column="0" CodeContent="{Binding Content,Mode=TwoWay}" />
+            <local:SourceEditor Grid.Column="0" CodeContent="{Binding Content,Mode=TwoWay}" ScrollRatio="{Binding ScrollRatio,Mode=TwoWay}"/>
 
-            <local:Preview Grid.Column="1" PreviewHTML="{Binding PreviewHTML,Mode=TwoWay}"></local:Preview>
+            <local:Preview Grid.Column="1" PreviewHTML="{Binding PreviewHTML,Mode=TwoWay}" ScrollOffsetRatio="{Binding ScrollRatio,Mode=TwoWay}"></local:Preview>
         </Grid>
 
     </Grid>

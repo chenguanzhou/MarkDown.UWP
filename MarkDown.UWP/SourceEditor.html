@@ -10,10 +10,14 @@
     <link rel="stylesheet" href="codemirror/addon/display/fullscreen.css">
 </head>
 <body>
-    <textarea id="source" style="font-size: 12pt"></textarea>
+    <div>
+        <textarea id="source" style="font-size: 12pt"></textarea>
+    </div>
 
     <script>
-        var myCodeMirror = CodeMirror(document.getElementById("source"), {
+        var area = document.getElementById("source");
+
+        var myCodeMirror = CodeMirror(area, {
             value: "",
             styleActiveLine: true,
             lineNumbers: true,
@@ -23,11 +27,25 @@
         });
 
         myCodeMirror.on("change", function () {
-            window.external.notify(myCodeMirror.getValue());
+            window.external.notify("change");
+        })
+
+        myCodeMirror.on("scroll", function () {
+            window.external.notify("scroll");
         })
 
         var setContent = function (content) {
             myCodeMirror.doc.setValue(content)
+        }
+
+        var getContent = function () {
+            return myCodeMirror.doc.getValue();
+        }
+
+        var getScrollRatio = function () {
+            var info = myCodeMirror.getScrollInfo();
+            var val = info.top / (info.height - info.clientHeight)
+            return val.toString();
         }
     </script>
 </body>

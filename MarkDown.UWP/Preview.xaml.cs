@@ -46,5 +46,27 @@ namespace MarkDown.UWP
             get { return GetValue(PreviewHTMLProperty).ToString(); }
             set { SetValue(PreviewHTMLProperty, value); }
         }
+
+        /// <summary>
+        /// DependencyProperty for the ScrollOffsetRatio binding. 
+        /// </summary>
+        public static DependencyProperty ScrollOffsetRatioProperty =
+            DependencyProperty.Register("ScrollOffsetRatio", typeof(double), typeof(Preview),
+            new PropertyMetadata(default(double), async (obj, args) =>
+            {
+                Preview target = (Preview)obj;
+                target.ScrollOffsetRatio = (double)args.NewValue;
+
+                await target.preview.InvokeScriptAsync("eval" , new string[] { $"scrollTo(0, {target.ScrollOffsetRatio} * (document.body.scrollHeight - window.innerHeight))" });
+            }));
+
+        /// <summary>
+        /// Provide access to the ScrollOffsetRatio.
+        /// </summary>
+        public double ScrollOffsetRatio
+        {
+            get { return (double)GetValue(ScrollOffsetRatioProperty); }
+            set { SetValue(ScrollOffsetRatioProperty, value); }
+        }
     }
 }

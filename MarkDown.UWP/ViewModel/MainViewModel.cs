@@ -88,6 +88,16 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
+        private double scrollRatio = 0.0;
+        public double ScrollRatio
+        {
+            get { return scrollRatio; }
+            set
+            {
+                Set(ref scrollRatio, value);
+            }
+        }
+
         public ICommand OpenCommand => new RelayCommand(async () => 
         {
             var picker = new FileOpenPicker();
