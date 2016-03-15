@@ -57,16 +57,22 @@ namespace MarkDown.UWP.ViewModel
 
         public async Task BackUp()
         {
+            
+
             JObject obj = new JObject();
             obj["Content"] = Content;
-            obj["DocumentPath"] = DocumentPath;
-            obj["DocumentTitle"] = DocumentTitle;
             obj["IsModified"] = IsModified;
-            
+            if (DocumentFile != null)
+            {
+                var tokon = Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(DocumentFile);
+                obj["Token"] = tokon;
+            }
+
 
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StorageFile file = await localFolder.CreateFileAsync("BackUp.txt", CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(file, obj.ToString());
+
         }
 
         public async Task Restore()
@@ -78,9 +84,14 @@ namespace MarkDown.UWP.ViewModel
                 var backup = await FileIO.ReadTextAsync(file);
                 JObject obj = JObject.Parse(backup);
                 Content = obj["Content"].ToString();
-                DocumentPath = obj["DocumentPath"].ToString();
-                DocumentTitle = obj["DocumentTitle"].ToString();
                 IsModified = (bool)obj["IsModified"];
+
+                var token = obj?["Token"]?.ToString();
+                if (token != null)
+                {
+                    DocumentFile = await Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.GetFileAsync(token);
+                    DocumentTitle = DocumentFile.Name;
+                }
             }
             catch (Exception)
             {
@@ -101,13 +112,13 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
-        public string documentPath = "";
-        public string DocumentPath
+        public StorageFile documentFile = null;
+        public StorageFile DocumentFile
         {
-            get { return documentPath; }
+            get { return documentFile; }
             set
             {
-                Set(ref documentPath, value);
+                Set(ref documentFile, value);
             }
         }
 
@@ -189,7 +200,7 @@ namespace MarkDown.UWP.ViewModel
             var reader = new StreamReader(buffer.AsStream(), encoder);
 
             Content = reader.ReadToEnd().Replace("\r\n","\n");
-            DocumentPath = file.Path;
+            DocumentFile = file;
             DocumentTitle = file.Name;
             IsModified = false;
         }
@@ -198,5 +209,43 @@ namespace MarkDown.UWP.ViewModel
         {
             OpenDoc();
         });
+
+
+        public ICommand SaveCommand => new RelayCommand(async () =>
+        {
+            await Save();
+            IsModified = false;
+        });
+
+        private async Task<bool> Save()
+        {
+            if (DocumentFile == null)
+            {
+                var picker = new FileSavePicker();
+                picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+                picker.FileTypeChoices.Add("Markdown document", new List<string>() { ".md", ".markdown" });
+                picker.SuggestedFileName = DocumentTitle;
+                StorageFile file = await picker.PickSaveFileAsync();
+                if (file != null)
+                {
+                    SaveDoc2File(file);
+                    DocumentFile = file;
+                    DocumentTitle = file.Name;
+                    IsModified = false;
+                }
+                else
+                    return false;
+            }
+            else
+            {
+                SaveDoc2File(DocumentFile);
+            }
+            return true;
+        }
+
+        private async void SaveDoc2File(StorageFile file)
+        {
+            await FileIO.WriteTextAsync(file, Content);
+        }
     }
 }

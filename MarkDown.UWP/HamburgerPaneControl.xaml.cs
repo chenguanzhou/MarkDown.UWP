@@ -23,10 +23,5 @@ namespace MarkDown.UWP
         {
             this.InitializeComponent();
         }
-
-        private void HamburgerMenuButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

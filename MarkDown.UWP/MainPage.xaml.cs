@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,9 +25,31 @@ namespace MarkDown.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private bool isCtrlKeyPressed = false;
+
         public MainPage()
         {
             this.InitializeComponent();
         }
+
+        //private void Grid_KeyUp(object sender, KeyRoutedEventArgs e)
+        //{
+        //    if (e.Key == VirtualKey.Control) isCtrlKeyPressed = false;
+        //}
+
+        //private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
+        //{
+        //    if (e.Key == VirtualKey.Control) isCtrlKeyPressed = true;
+        //    else if (isCtrlKeyPressed)
+        //    {
+        //        var vm = ViewModel.ViewModelLocator.Main;
+        //        switch (e.Key)
+        //        {
+        //            case VirtualKey.N: vm.NewCommand.Execute(null); break;
+        //            case VirtualKey.O: vm.OpenCommand.Execute(null); break;
+        //            case VirtualKey.S: vm.SaveCommand.Execute(null); break;
+        //        }
+        //    }
+        //}
     }
 }

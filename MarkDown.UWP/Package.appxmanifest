@@ -25,6 +25,7 @@
           <uap:FileTypeAssociation Name="markdown">
             <uap:DisplayName>MarkDown.UWP</uap:DisplayName>
             <uap:SupportedFileTypes>
+              <uap:FileType>.md</uap:FileType>
               <uap:FileType>.markdown</uap:FileType>
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>

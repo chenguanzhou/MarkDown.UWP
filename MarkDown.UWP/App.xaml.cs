@@ -71,8 +71,8 @@ namespace MarkDown.UWP
                     IsPaneOpen = false
                 };
 
-                Binding biding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
-                BindingOperations.SetBinding(((HamburgerTitleBar)(((HamburgerFrame)rootFrame).Header)), HamburgerTitleBar.TitleProperty, biding);
+                Binding binding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
+                BindingOperations.SetBinding(((HamburgerTitleBar)(((HamburgerFrame)rootFrame).Header)), HamburgerTitleBar.TitleProperty, binding);
 
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
@@ -153,8 +153,8 @@ namespace MarkDown.UWP
                     IsPaneOpen = false
                 };
 
-                Binding biding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
-                BindingOperations.SetBinding(((HamburgerTitleBar)(((HamburgerFrame)rootFrame).Header)), HamburgerTitleBar.TitleProperty, biding);
+                Binding binding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
+                BindingOperations.SetBinding(((HamburgerTitleBar)(((HamburgerFrame)rootFrame).Header)), HamburgerTitleBar.TitleProperty, binding);
 
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
