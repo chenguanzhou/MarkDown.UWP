@@ -1,0 +1,34 @@
+﻿<UserControl
+    x:Class="MarkDown.UWP.HamburgerPaneControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MarkDown.UWP"
+    xmlns:controls="using:Cimbalino.Toolkit.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <controls:HamburgerMenuButton Content="Open" Command="{Binding OpenCommand}">
+                <controls:HamburgerMenuButton.Icon>
+                    <FontIcon FontSize="16" Glyph="&#xE8DA;" />
+                </controls:HamburgerMenuButton.Icon>
+            </controls:HamburgerMenuButton>            
+        </StackPanel>
+
+        <controls:HamburgerMenuButton Grid.Row="2"  Content="Settings">
+            <controls:HamburgerMenuButton.Icon>
+                <FontIcon FontSize="16" Glyph="&#xE713;" />
+            </controls:HamburgerMenuButton.Icon>
+        </controls:HamburgerMenuButton>
+    </Grid>
+</UserControl>
