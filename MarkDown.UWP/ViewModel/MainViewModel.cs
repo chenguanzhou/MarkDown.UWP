@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
@@ -41,22 +42,40 @@ namespace MarkDown.UWP.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            //MarkdownOptions option = new MarkdownOptions();
-            //option.AutoHyperlink = true;
-            //option.AutoNewlines = true;
-            //option.LinkEmails = true;
-            //option.StrictBoldItalic = false;
-
-            //processor = new Markdown(option);
-
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
-
-        //Markdown processor;
 
         public override void Cleanup()
         {
             base.Cleanup();
+        }
+
+        static ResourceLoader loader = new ResourceLoader();
+
+        static public string AppName => loader.GetString("AppName");
+
+        public string Title => DocumentTitle + (IsModified ? "(*)" : "");
+
+        public string documentTitle = loader.GetString("UntitledTitle");
+        public string DocumentTitle
+        {
+            get { return documentTitle; }
+            set
+            {
+                Set(ref documentTitle, value);
+                RaisePropertyChanged("Title");
+            }
+        }
+
+        public bool isModified = false;
+        public bool IsModified
+        {
+            get { return isModified; }
+            set
+            {
+                Set(ref isModified, value);
+                RaisePropertyChanged("Title");
+            }
         }
 
         private string content = "";
@@ -68,6 +87,7 @@ namespace MarkDown.UWP.ViewModel
                 if (content == value)
                     return;
                 Set(ref content, value);
+                IsModified = true;
 
                 using (var reader = new StringReader(content))
                 using (var writer = new StringWriter())
@@ -98,6 +118,13 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
+        public ICommand NewCommand => new RelayCommand(() =>
+        {
+            Content = "";
+            DocumentTitle = loader.GetString("UntitledTitle");
+            IsModified = false;
+        });
+
         public ICommand OpenCommand => new RelayCommand(async () => 
         {
             var picker = new FileOpenPicker();
@@ -112,7 +139,9 @@ namespace MarkDown.UWP.ViewModel
             var encoder = SimpleHelpers.FileEncoding.DetectFileEncoding(buffer.AsStream(), Encoding.UTF8);
             var reader = new StreamReader(buffer.AsStream(), encoder);
 
-            Content = reader.ReadToEnd();
+            Content = reader.ReadToEnd().Replace("\r\n","\n");
+            DocumentTitle = file.Name;
+            IsModified = false;
         });
     }
 }

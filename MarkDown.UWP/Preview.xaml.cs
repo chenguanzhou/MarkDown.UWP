@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -67,6 +68,15 @@ namespace MarkDown.UWP
         {
             get { return (double)GetValue(ScrollOffsetRatioProperty); }
             set { SetValue(ScrollOffsetRatioProperty, value); }
+        }
+
+        private async void preview_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            if (args.Uri != null)
+            {
+                args.Cancel = true;
+                await Launcher.LaunchUriAsync(args.Uri);
+            }
         }
     }
 }

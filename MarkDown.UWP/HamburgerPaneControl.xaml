@@ -18,6 +18,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
+            <controls:HamburgerMenuButton Content="New" Command="{Binding NewCommand}">
+                <controls:HamburgerMenuButton.Icon>
+                    <FontIcon FontSize="16" Glyph="&#xE8F4;" />
+                </controls:HamburgerMenuButton.Icon>
+            </controls:HamburgerMenuButton>  
             <controls:HamburgerMenuButton Content="Open" Command="{Binding OpenCommand}">
                 <controls:HamburgerMenuButton.Icon>
                     <FontIcon FontSize="16" Glyph="&#xE8DA;" />

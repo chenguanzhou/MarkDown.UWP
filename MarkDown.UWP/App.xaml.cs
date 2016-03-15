@@ -1,4 +1,5 @@
-﻿using MarkDown.UWP.ViewModel;
+﻿using Cimbalino.Toolkit.Controls;
+using MarkDown.UWP.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,16 +61,17 @@ namespace MarkDown.UWP
                 // Create a Frame to act as the navigation context and navigate to the first page
 
                 //rootFrame = new Frame();
-                rootFrame = new Cimbalino.Toolkit.Controls.HamburgerFrame()
+                rootFrame = new HamburgerFrame()
                 {
-                    Header = new Cimbalino.Toolkit.Controls.HamburgerTitleBar()
-                    {
-                        Title = "MarkDown.UWP"
-                    },
+                    Header = new HamburgerTitleBar(),
                     Pane = new HamburgerPaneControl() { DataContext = ViewModelLocator.Main},
                     OpenPaneLength = 200,
                     IsPaneOpen = false
                 };
+
+                Binding biding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
+                BindingOperations.SetBinding(((HamburgerTitleBar)(((HamburgerFrame)rootFrame).Header)), HamburgerTitleBar.TitleProperty, biding);
+
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 

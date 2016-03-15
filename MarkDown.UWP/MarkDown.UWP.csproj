@@ -97,6 +97,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="project.json" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -108,7 +109,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Markdown.cs" />
     <Compile Include="MarkDownPage.xaml.cs">
       <DependentUpon>MarkDownPage.xaml</DependentUpon>
     </Compile>
