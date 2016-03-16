@@ -144,13 +144,13 @@ namespace MarkDown.UWP.ViewModel
                 Set(ref content, value);
                 IsModified = true;
 
-                using (var reader = new StringReader(content))
-                using (var writer = new StringWriter())
-                {
-                    CommonMarkConverter.Convert(reader, writer);
-                    PreviewHTML = writer.ToString();
-                }
+                UpdatePreviewHTML();
             }
+        }
+
+        private async void UpdatePreviewHTML()
+        {
+            PreviewHTML = await MarkDownProcessor.MD2HTML(Content);
         }
 
         private string previewHTML = "";

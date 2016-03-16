@@ -114,6 +114,7 @@
     <Compile Include="MarkDownPage.xaml.cs">
       <DependentUpon>MarkDownPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MarkDownProcessor.cs" />
     <Compile Include="Preview.xaml.cs">
       <DependentUpon>Preview.xaml</DependentUpon>
     </Compile>
