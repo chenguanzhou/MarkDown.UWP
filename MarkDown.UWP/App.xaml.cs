@@ -92,12 +92,10 @@ namespace MarkDown.UWP
                 // configuring the new page by passing required information as a navigation
                 // parameter
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                await ViewModelLocator.Main.Restore();
             }
             // Ensure the current window is active
             Window.Current.Activate();
-
-            if (string.IsNullOrEmpty(e.Arguments))
-                await ViewModelLocator.Main.Restore();
         }
 
         /// <summary>
@@ -132,7 +130,7 @@ namespace MarkDown.UWP
             await ViewModelLocator.Main.Restore();
         }
 
-        protected override void OnFileActivated(FileActivatedEventArgs args)
+        protected override async void OnFileActivated(FileActivatedEventArgs args)
         {
             base.OnFileActivated(args);
 
@@ -169,10 +167,11 @@ namespace MarkDown.UWP
                 // configuring the new page by passing required information as a navigation
                 // parameter
                 rootFrame.Navigate(typeof(MainPage));
+                await ViewModelLocator.Main.Restore();
             }
 
             Window.Current.Activate();
-            ViewModelLocator.Main.OpenDoc((StorageFile)args.Files[0]);
+            await ViewModelLocator.Main.OpenDoc((StorageFile)args.Files[0]);
         }
     }
 }

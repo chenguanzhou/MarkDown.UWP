@@ -1,7 +1,6 @@
 using CommonMark;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-//using MarkdownSharp;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
@@ -21,6 +20,7 @@ using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 
 namespace MarkDown.UWP.ViewModel
 {
@@ -173,15 +173,45 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
-        public ICommand NewCommand => new RelayCommand(() =>
+        public void NewDoc()
         {
             Content = "";
             DocumentTitle = loader.GetString("UntitledTitle");
+            DocumentFile = null;
             IsModified = false;
+        }
+
+        public ICommand NewCommand => new RelayCommand(async () =>
+        {
+            if (IsModified)
+            {
+                var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
+                dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); NewDoc(); }));
+                dlg.Commands.Add(new UICommand("Don't Save", cmd => { NewDoc(); }));
+                dlg.Commands.Add(new UICommand("Cancel"));
+                await dlg.ShowAsync();
+            }
+            else
+                NewDoc();            
         });
 
 
-        public async void OpenDoc(StorageFile file = null)
+        public async Task OpenDoc(StorageFile file = null)
+        {
+            if (IsModified)
+            {
+                var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
+                dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); await Open(file); }));
+                dlg.Commands.Add(new UICommand("Don't Save", async cmd => { await Open(file); }));
+                dlg.Commands.Add(new UICommand("Cancel"));
+                await dlg.ShowAsync();
+            }
+            else
+                await Open(file);
+        }
+
+
+        public async Task Open(StorageFile file = null)
         {
             if (file == null)
             {
@@ -205,9 +235,9 @@ namespace MarkDown.UWP.ViewModel
             IsModified = false;
         }
 
-        public ICommand OpenCommand => new RelayCommand(() => 
+        public ICommand OpenCommand => new RelayCommand(async () => 
         {
-            OpenDoc();
+            await OpenDoc();
         });
 
 

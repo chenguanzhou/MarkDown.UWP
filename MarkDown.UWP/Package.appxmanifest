@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="86226f93-1022-49ff-a35f-f28a66aed3ec" Publisher="CN=cgz" Version="0.0.0.0" />
+  <Identity Name="20519.MarkDown" Publisher="CN=47E9AE6E-A62C-49F1-A646-D4B2A2E88F5D" Version="1.1.5.0" />
   <mp:PhoneIdentity PhoneProductId="86226f93-1022-49ff-a35f-f28a66aed3ec" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>MarkDown.UWP</DisplayName>
-    <PublisherDisplayName>cgz</PublisherDisplayName>
+    <PublisherDisplayName>陈关州</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -16,14 +16,24 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="MarkDown.UWP.App">
       <uap:VisualElements DisplayName="MarkDown.UWP" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="MarkDown.UWP" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="MarkDown.UWP" Square310x310Logo="Assets\Square310x310Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="white" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape" />
+          <uap:Rotation Preference="landscapeFlipped" />
+        </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.fileTypeAssociation">
           <uap:FileTypeAssociation Name="markdown">
             <uap:DisplayName>MarkDown.UWP</uap:DisplayName>
+            <uap:Logo>Assets\FileAssociation.png</uap:Logo>
             <uap:SupportedFileTypes>
               <uap:FileType>.md</uap:FileType>
               <uap:FileType>.markdown</uap:FileType>

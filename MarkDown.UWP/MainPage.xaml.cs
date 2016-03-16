@@ -25,7 +25,7 @@ namespace MarkDown.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private bool isCtrlKeyPressed = false;
+        //private bool isCtrlKeyPressed = false;
 
         public MainPage()
         {
