@@ -147,6 +147,82 @@
     <Content Include="codemirror\lib\codemirror.js" />
     <Content Include="codemirror\mode\markdown\markdown.js" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="css\Default.css" />
+    <Content Include="highlighting.js\highlight.js" />
+    <Content Include="highlighting.js\styles\agate.css" />
+    <Content Include="highlighting.js\styles\androidstudio.css" />
+    <Content Include="highlighting.js\styles\arduino-light.css" />
+    <Content Include="highlighting.js\styles\arta.css" />
+    <Content Include="highlighting.js\styles\ascetic.css" />
+    <Content Include="highlighting.js\styles\atelier-cave-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-cave-light.css" />
+    <Content Include="highlighting.js\styles\atelier-dune-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-dune-light.css" />
+    <Content Include="highlighting.js\styles\atelier-estuary-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-estuary-light.css" />
+    <Content Include="highlighting.js\styles\atelier-forest-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-forest-light.css" />
+    <Content Include="highlighting.js\styles\atelier-heath-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-heath-light.css" />
+    <Content Include="highlighting.js\styles\atelier-lakeside-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-lakeside-light.css" />
+    <Content Include="highlighting.js\styles\atelier-plateau-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-plateau-light.css" />
+    <Content Include="highlighting.js\styles\atelier-savanna-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-savanna-light.css" />
+    <Content Include="highlighting.js\styles\atelier-seaside-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-seaside-light.css" />
+    <Content Include="highlighting.js\styles\atelier-sulphurpool-dark.css" />
+    <Content Include="highlighting.js\styles\atelier-sulphurpool-light.css" />
+    <Content Include="highlighting.js\styles\brown-paper.css" />
+    <Content Include="highlighting.js\styles\brown-papersq.png" />
+    <Content Include="highlighting.js\styles\codepen-embed.css" />
+    <Content Include="highlighting.js\styles\color-brewer.css" />
+    <Content Include="highlighting.js\styles\dark.css" />
+    <Content Include="highlighting.js\styles\darkula.css" />
+    <Content Include="highlighting.js\styles\default.css" />
+    <Content Include="highlighting.js\styles\docco.css" />
+    <Content Include="highlighting.js\styles\dracula.css" />
+    <Content Include="highlighting.js\styles\far.css" />
+    <Content Include="highlighting.js\styles\foundation.css" />
+    <Content Include="highlighting.js\styles\github-gist.css" />
+    <Content Include="highlighting.js\styles\github.css" />
+    <Content Include="highlighting.js\styles\googlecode.css" />
+    <Content Include="highlighting.js\styles\grayscale.css" />
+    <Content Include="highlighting.js\styles\gruvbox-dark.css" />
+    <Content Include="highlighting.js\styles\gruvbox-light.css" />
+    <Content Include="highlighting.js\styles\hopscotch.css" />
+    <Content Include="highlighting.js\styles\hybrid.css" />
+    <Content Include="highlighting.js\styles\idea.css" />
+    <Content Include="highlighting.js\styles\ir-black.css" />
+    <Content Include="highlighting.js\styles\kimbie.dark.css" />
+    <Content Include="highlighting.js\styles\kimbie.light.css" />
+    <Content Include="highlighting.js\styles\magula.css" />
+    <Content Include="highlighting.js\styles\mono-blue.css" />
+    <Content Include="highlighting.js\styles\monokai-sublime.css" />
+    <Content Include="highlighting.js\styles\monokai.css" />
+    <Content Include="highlighting.js\styles\obsidian.css" />
+    <Content Include="highlighting.js\styles\paraiso-dark.css" />
+    <Content Include="highlighting.js\styles\paraiso-light.css" />
+    <Content Include="highlighting.js\styles\pojoaque.css" />
+    <Content Include="highlighting.js\styles\pojoaque.jpg" />
+    <Content Include="highlighting.js\styles\qtcreator_dark.css" />
+    <Content Include="highlighting.js\styles\qtcreator_light.css" />
+    <Content Include="highlighting.js\styles\railscasts.css" />
+    <Content Include="highlighting.js\styles\rainbow.css" />
+    <Content Include="highlighting.js\styles\school-book.css" />
+    <Content Include="highlighting.js\styles\school-book.png" />
+    <Content Include="highlighting.js\styles\solarized-dark.css" />
+    <Content Include="highlighting.js\styles\solarized-light.css" />
+    <Content Include="highlighting.js\styles\sunburst.css" />
+    <Content Include="highlighting.js\styles\tomorrow-night-blue.css" />
+    <Content Include="highlighting.js\styles\tomorrow-night-bright.css" />
+    <Content Include="highlighting.js\styles\tomorrow-night-eighties.css" />
+    <Content Include="highlighting.js\styles\tomorrow-night.css" />
+    <Content Include="highlighting.js\styles\tomorrow.css" />
+    <Content Include="highlighting.js\styles\vs.css" />
+    <Content Include="highlighting.js\styles\xcode.css" />
+    <Content Include="highlighting.js\styles\zenburn.css" />
     <Content Include="SourceEditor.html" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -185,9 +261,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="highlighting.js\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
