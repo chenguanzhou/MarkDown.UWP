@@ -78,5 +78,10 @@ namespace MarkDown.UWP
                 await Launcher.LaunchUriAsync(args.Uri);
             }
         }
+
+        private async void preview_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            await preview.InvokeScriptAsync("eval", new string[] { $"scrollTo(0, {ScrollOffsetRatio} * (document.body.scrollHeight - window.innerHeight))" });
+        }
     }
 }

@@ -9,5 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <WebView Name="preview" NavigationStarting="preview_NavigationStarting"></WebView>
+    <WebView Name="preview" 
+             NavigationStarting="preview_NavigationStarting" 
+             NavigationCompleted="preview_NavigationCompleted"></WebView>
 </UserControl>

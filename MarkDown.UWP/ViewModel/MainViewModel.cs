@@ -84,18 +84,18 @@ namespace MarkDown.UWP.ViewModel
                 var backup = await FileIO.ReadTextAsync(file);
                 JObject obj = JObject.Parse(backup);
                 Content = obj["Content"].ToString();
-                IsModified = (bool)obj["IsModified"];
 
                 var token = obj?["Token"]?.ToString();
                 if (token != null)
                 {
                     DocumentFile = await Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.GetFileAsync(token);
                     DocumentTitle = DocumentFile.Name;
+                    IsModified = (bool)obj["IsModified"];
                 }
             }
             catch (Exception)
             {
-
+                IsModified = true;
             }
         }
 
@@ -148,9 +148,10 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
+        MarkDownProcessor processor = new MarkDownProcessor();
         private async void UpdatePreviewHTML()
         {
-            PreviewHTML = await MarkDownProcessor.MD2HTML(Content);
+            PreviewHTML = await processor.MD2HTML(Content);
         }
 
         private string previewHTML = "";

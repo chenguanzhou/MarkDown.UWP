@@ -25,7 +25,10 @@
                 <local:SourceEditor  CodeContent="{Binding Content,Mode=TwoWay}" ScrollRatio="{Binding ScrollRatio,Mode=TwoWay}"/>
             </Grid>
 
-            <local:Preview Grid.Column="1" PreviewHTML="{Binding PreviewHTML,Mode=TwoWay}" ScrollOffsetRatio="{Binding ScrollRatio,Mode=TwoWay}"></local:Preview>
+            <local:Preview Grid.Column="1" 
+                           PreviewHTML="{Binding PreviewHTML,Mode=TwoWay}" 
+                           ScrollOffsetRatio="{Binding ScrollRatio,Mode=TwoWay}">                
+            </local:Preview>
         </Grid>
 
     </Grid>
