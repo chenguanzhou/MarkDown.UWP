@@ -81,7 +81,16 @@ namespace MarkDown.UWP.ViewModel
             try
             {
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                StorageFile file = await localFolder.GetFileAsync("BackUp.txt");
+                StorageFile file;
+                try
+                {
+                    file = await localFolder.GetFileAsync("BackUp.txt");
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                    
                 var backup = await FileIO.ReadTextAsync(file);
                 JObject obj = JObject.Parse(backup);
                 Content = obj["Content"].ToString();
@@ -152,7 +161,7 @@ namespace MarkDown.UWP.ViewModel
         MarkDownProcessor processor = new MarkDownProcessor();
         private async void UpdatePreviewHTML()
         {
-            PreviewHTML = await processor.MD2HTML(Content);
+            PreviewHTML = await processor.MD2HTML(Content, AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Desktop");
         }
 
         private string previewHTML = "";

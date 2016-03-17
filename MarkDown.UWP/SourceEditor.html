@@ -3,7 +3,7 @@
 <head>
     <title>CodeMirror</title>
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="codemirror/lib/font.css">
+    <!--<link rel="stylesheet" href="codemirror/lib/font.css">-->
     <script src="codemirror/lib/codemirror.js"></script>
     <script src="codemirror/mode/markdown/markdown.js"></script>
     <script src="codemirror/addon/selection/active-line.js"></script>
@@ -15,9 +15,14 @@
     <textarea id="source"></textarea>
     </div>
     <script>
-        var area = document.getElementById("source");
+        var mobile = /Android|webOS|BlackBerry|Opera Mini|Opera Mobi|IEMobile/i.test(navigator.userAgent);
+        var fileref = document.createElement('link');
+        fileref.setAttribute("rel", "stylesheet");
+        fileref.setAttribute("type", "text/css");
+        fileref.setAttribute("href", mobile ? "codemirror/lib/font.mobile.css" : "codemirror/lib/font.css");
+        document.getElementsByTagName("head")[0].appendChild(fileref);
 
-        var myCodeMirror = CodeMirror(area, {
+        var myCodeMirror = CodeMirror(document.getElementById("source"), {
             value: "",
             styleActiveLine: true,
             lineNumbers: true,
@@ -25,6 +30,8 @@
             lineWrapping: true,
             mode: "markdown"
         });
+
+        
 
         myCodeMirror.on("change", function () {
             window.external.notify("change");

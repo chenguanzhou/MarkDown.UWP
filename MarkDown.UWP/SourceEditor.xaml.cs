@@ -66,7 +66,12 @@ namespace MarkDown.UWP
                  try
                  {
                      if (editor.UpdateToHtml)
-                        await editor.sourceEditor.InvokeScriptAsync("setContent", new string[] { editor.CodeContent });
+                     {
+                         if (editor.IsLoaded)
+                             await editor.sourceEditor.InvokeScriptAsync("setContent", new string[] { editor.CodeContent });
+                         else
+                             editor.IsLoadContentDelay = true;
+                     }
                  }
                  catch (Exception ex)
                  {
@@ -107,5 +112,20 @@ namespace MarkDown.UWP
             }
         }
 
+        
+
+        public bool IsLoadContentDelay { get; set; } = false;
+
+        public bool IsLoaded { get; set; } = false;
+        private async void sourceEditor_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            IsLoaded = true;
+            if (IsLoadContentDelay)
+            {
+                await sourceEditor.InvokeScriptAsync("setContent", new string[] { CodeContent });
+                IsLoadContentDelay = false;
+            }
+
+        }
     }
 }

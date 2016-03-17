@@ -9,5 +9,5 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <WebView Name="sourceEditor" Source="ms-appx-web:///SourceEditor.html" ScriptNotify="srcView_ScriptNotify"></WebView>
+    <WebView Name="sourceEditor" Source="ms-appx-web:///SourceEditor.html" ScriptNotify="srcView_ScriptNotify" NavigationCompleted="sourceEditor_NavigationCompleted"></WebView>
 </UserControl>

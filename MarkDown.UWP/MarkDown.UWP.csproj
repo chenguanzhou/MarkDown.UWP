@@ -147,9 +147,11 @@
     <Content Include="codemirror\addon\selection\active-line.js" />
     <Content Include="codemirror\lib\codemirror.css" />
     <Content Include="codemirror\lib\codemirror.js" />
+    <Content Include="codemirror\lib\font.mobile.css" />
     <Content Include="codemirror\lib\font.css" />
     <Content Include="codemirror\mode\markdown\markdown.js" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="css\Default.mobile.css" />
     <Content Include="css\Default.css" />
     <Content Include="highlighting.js\highlight.js" />
     <Content Include="highlighting.js\styles\agate.css" />

@@ -11,10 +11,10 @@ namespace MarkDown.UWP
 {
     public class MarkDownProcessor
     {
-        public async Task<string> MD2HTML(string mdContent) => 
+        public async Task<string> MD2HTML(string MarkdownContent, bool IsMobile) => 
             await Task.Run(async () =>
             {
-                var body = md2body(mdContent);
+                var body = md2body(MarkdownContent);
 
                 Windows.ApplicationModel.Package package = Windows.ApplicationModel.Package.Current;
 
@@ -26,7 +26,7 @@ namespace MarkDown.UWP
                 var js_css = await FileIO.ReadTextAsync(highlightJSCSSFile);
 
                 var cssFolder = await package.InstalledLocation.GetFolderAsync("css");
-                var cssFile = await cssFolder.GetFileAsync("Default.css");
+                var cssFile = await cssFolder.GetFileAsync(IsMobile ? "Default.mobile.css" : "Default.css");
                 var css = await FileIO.ReadTextAsync(cssFile);
 
 
