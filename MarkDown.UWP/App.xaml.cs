@@ -41,7 +41,7 @@ namespace MarkDown.UWP
             this.UnhandledException += OnUnhandledException;
         }
 
-        public static Windows.UI.Core.CoreDispatcher Dispatcher;
+        //public static Windows.UI.Core.CoreDispatcher Dispatcher;
 
         private async void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {

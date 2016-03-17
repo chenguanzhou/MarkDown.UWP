@@ -23,5 +23,10 @@ namespace MarkDown.UWP
         {
             this.InitializeComponent();
         }
+
+        private void ShowPreviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShowPreviewButton.IsChecked = !ShowPreviewButton.IsChecked;
+        }
     }
 }

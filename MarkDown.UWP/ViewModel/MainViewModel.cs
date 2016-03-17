@@ -57,9 +57,7 @@ namespace MarkDown.UWP.ViewModel
         static public string AppName => loader.GetString("AppName");
 
         public async Task BackUp()
-        {
-            
-
+        {           
             JObject obj = new JObject();
             obj["Content"] = Content;
             obj["IsModified"] = IsModified;
@@ -69,17 +67,20 @@ namespace MarkDown.UWP.ViewModel
                 obj["Token"] = tokon;
             }
 
-
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StorageFile file = await localFolder.CreateFileAsync("BackUp.txt", CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(file, obj.ToString());
 
+            ApplicationData.Current.LocalSettings.Values["IsShowPreview"] = IsShowPreview;
         }
 
         public async Task Restore()
         {
             try
             {
+                if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("IsShowPreview"))
+                    IsShowPreview = (bool)ApplicationData.Current.LocalSettings.Values["IsShowPreview"];
+
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
                 StorageFile file;
                 try
@@ -184,15 +185,88 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
-        private async void ShowSaveConfirmDialog()
+
+
+        #region ShowPreview
+        private string isNarrowState = "NarrowState";
+        public string NarrowState
         {
-            var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
-            dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); NewDoc(); }));
-            dlg.Commands.Add(new UICommand("Don't Save", cmd => { NewDoc(); }));
-            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
-                dlg.Commands.Add(new UICommand("Cancel"));
-            await dlg.ShowAsync();
+            get { return isNarrowState; }
+            set
+            {
+                if (isNarrowState == value)
+                    return;
+                isNarrowState = value;
+                RaisePropertyChanged("IsNarrowState");
+
+                //if (IsShowPreview == null)
+                //    IsShowPreview = isNarrowState != "NarrowState";
+
+                if (isNarrowState == "NarrowState")
+                {                    
+                    PreviewWidth = IsShowPreview == true ? "*" : "0";
+                    SourceCodeWidth = IsShowPreview == true ? "0" : "*";
+                }
+                else
+                {
+                    PreviewWidth = IsShowPreview == true ? "*" : "0";
+                    SourceCodeWidth = "*";
+                }
+            }
         }
+
+        public bool showPreview = false;
+        public bool IsShowPreview
+        {
+            get { return showPreview; }
+            set
+            {
+                if (showPreview == value)
+                    return;
+                showPreview = value;                
+                RaisePropertyChanged("IsShowPreview");
+                if (isNarrowState == "NarrowState")
+                {
+                    PreviewWidth = IsShowPreview == true ? "*" : "0";
+                    SourceCodeWidth = IsShowPreview == true ? "0" : "*";
+                }
+                else
+                {
+                    PreviewWidth = IsShowPreview == true ? "*" : "0";
+                    SourceCodeWidth = "*";
+                }
+            }
+        }
+
+        public string sourceCodeWidth = "*";
+        public string SourceCodeWidth
+        {
+            get { return sourceCodeWidth; }
+            set { Set(ref sourceCodeWidth, value);}
+        }
+
+        public string previewWidth = "0";
+        public string PreviewWidth
+        {
+            get { return previewWidth; }
+            set
+            {
+                Set(ref previewWidth, value);
+            }
+        }
+        #endregion
+
+        #region Documents Commands
+
+        //private async void ShowSaveConfirmDialog()
+        //{
+        //    var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
+        //    dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); NewDoc(); }));
+        //    dlg.Commands.Add(new UICommand("Don't Save", cmd => { NewDoc(); }));
+        //    if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+        //        dlg.Commands.Add(new UICommand("Cancel"));
+        //    await dlg.ShowAsync();
+        //}
 
         public void NewDoc()
         {
@@ -206,7 +280,13 @@ namespace MarkDown.UWP.ViewModel
         {
             if (IsModified)
             {
-                await App.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, ()=>ShowSaveConfirmDialog());
+                //await App.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, ()=>ShowSaveConfirmDialog());
+                var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
+                dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); NewDoc(); }));
+                dlg.Commands.Add(new UICommand("Don't Save", cmd => { NewDoc(); }));
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+                    dlg.Commands.Add(new UICommand("Cancel"));
+                await dlg.ShowAsync();
             }
             else
                 NewDoc();            
@@ -295,5 +375,7 @@ namespace MarkDown.UWP.ViewModel
         {
             await FileIO.WriteTextAsync(file, Content);
         }
+
+        #endregion
     }
 }

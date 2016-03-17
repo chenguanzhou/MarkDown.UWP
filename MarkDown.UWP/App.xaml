@@ -6,7 +6,7 @@
     RequestedTheme="Light">
     <Application.Resources>
         <ResourceDictionary>
-            <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:MarkDown.UWP.ViewModel" />
+            <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:MarkDown.UWP.ViewModel" />            
         </ResourceDictionary>
     </Application.Resources>
 

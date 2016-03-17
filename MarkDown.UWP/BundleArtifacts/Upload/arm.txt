@@ -1,2 +1,2 @@
-MainPackage=C:\Users\cgz\Documents\code\c#\MarkDown.UWP\MarkDown.UWP\bin\ARM\Release\Upload\MarkDown.UWP_1.1.6.0_ARM.appx
+MainPackage=C:\Users\cgz\Documents\code\c#\MarkDown.UWP\MarkDown.UWP\bin\ARM\Release\Upload\MarkDown.UWP_1.1.9.0_ARM.appx
 ResourcePack=C:\Users\cgz\Documents\code\c#\MarkDown.UWP\MarkDown.UWP\_scale-400.appx

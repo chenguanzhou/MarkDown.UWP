@@ -32,13 +32,17 @@
                 <controls:HamburgerMenuButton.Icon>
                     <FontIcon FontSize="16" Glyph="&#xE74E;" />
                 </controls:HamburgerMenuButton.Icon>
-            </controls:HamburgerMenuButton>
+            </controls:HamburgerMenuButton>            
         </StackPanel>
 
-        <controls:HamburgerMenuButton Grid.Row="2"  Content="Settings">
-            <controls:HamburgerMenuButton.Icon>
-                <FontIcon FontSize="16" Glyph="&#xE713;" />
-            </controls:HamburgerMenuButton.Icon>
-        </controls:HamburgerMenuButton>
+        <StackPanel Orientation="Vertical" Grid.Row="2">
+            <controls:HamburgerMenuButton x:Name="ShowPreviewButton" Icon="Sync" Content="Show Preview" IsChecked="{Binding IsShowPreview,Mode=TwoWay}" Click="ShowPreviewButton_Click"></controls:HamburgerMenuButton>
+            <controls:HamburgerMenuButton Content="Settings">
+                <controls:HamburgerMenuButton.Icon>
+                    <FontIcon FontSize="16" Glyph="&#xE713;" />
+                </controls:HamburgerMenuButton.Icon>
+            </controls:HamburgerMenuButton>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

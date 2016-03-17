@@ -29,8 +29,13 @@ namespace MarkDown.UWP
 
         public MainPage()
         {
-            App.Dispatcher = Dispatcher;
+            //App.Dispatcher = Dispatcher;
             this.InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, grid.ActualWidth > 720 ? "WideState" : "NarrowState", false);
         }
 
         //private void Grid_KeyUp(object sender, KeyRoutedEventArgs e)

@@ -51,8 +51,10 @@
 
         var getScrollRatio = function () {
             var info = myCodeMirror.getScrollInfo();
-            var val = info.top / (info.height - info.clientHeight)
-            return val.toString();
+            if (info.height <= info.clientHeight)
+                return "0";
+            else
+                return (info.top / (info.height - info.clientHeight)).toString();
         }
     </script>
 </body>

@@ -3,33 +3,52 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MarkDown.UWP"
+    xmlns:con="using:MarkDown.UWP.Converters"
     xmlns:controls="using:Cimbalino.Toolkit.Controls"
     xmlns:vm="using:MarkDown.UWP.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding Main,Source={StaticResource Locator}}"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Loaded="Page_Loaded">
+    <Page.Resources>
+        <con:HalfConverter x:Key="halfConverter"></con:HalfConverter>
+    </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="grid" Tag="{Binding NarrowState,Mode=TwoWay}" 
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">       
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowSizeStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.Setters>
+                        <Setter Target="grid.Tag" Value="WideState" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.Setters>
+                        <Setter Target="grid.Tag" Value="NarrowState" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="{Binding SourceCodeWidth}"></ColumnDefinition>
+                <ColumnDefinition Width="{Binding PreviewWidth}"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <local:SourceEditor  CodeContent="{Binding Content,Mode=TwoWay}" ScrollRatio="{Binding ScrollRatio,Mode=TwoWay}"/>
-            </Grid>
+            <local:SourceEditor Padding="5" CodeContent="{Binding Content,Mode=TwoWay}" ScrollRatio="{Binding ScrollRatio,Mode=TwoWay}"/>
 
-            <local:Preview Grid.Column="1" 
+            <local:Preview Grid.Column="1" Padding="5"
                            PreviewHTML="{Binding PreviewHTML,Mode=TwoWay}" 
                            ScrollOffsetRatio="{Binding ScrollRatio,Mode=TwoWay}">                
             </local:Preview>
         </Grid>
-
     </Grid>
 </Page>
