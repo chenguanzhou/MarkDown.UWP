@@ -1,0 +1,9 @@
+﻿textarea{
+    font-size: 150% ;
+} 
+
+@media only screen and (min-width: 768px){ 
+    textarea{
+        font-size: 100% ;
+    }     
+}

@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -82,7 +83,8 @@ namespace MarkDown.UWP
             get { return GetValue(CodeContentProperty).ToString(); }
             set
             {
-                SetValue(CodeContentProperty, value);
+                if(CodeContent != value)
+                    SetValue(CodeContentProperty, value);
             }
         }
 

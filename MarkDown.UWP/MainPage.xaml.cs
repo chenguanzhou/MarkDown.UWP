@@ -29,6 +29,7 @@ namespace MarkDown.UWP
 
         public MainPage()
         {
+            App.Dispatcher = Dispatcher;
             this.InitializeComponent();
         }
 

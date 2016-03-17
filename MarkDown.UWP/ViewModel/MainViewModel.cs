@@ -20,6 +20,7 @@ using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.System.Profile;
 using Windows.UI.Popups;
 
 namespace MarkDown.UWP.ViewModel
@@ -174,6 +175,16 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
+        private async void ShowSaveConfirmDialog()
+        {
+            var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
+            dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); NewDoc(); }));
+            dlg.Commands.Add(new UICommand("Don't Save", cmd => { NewDoc(); }));
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+                dlg.Commands.Add(new UICommand("Cancel"));
+            await dlg.ShowAsync();
+        }
+
         public void NewDoc()
         {
             Content = "";
@@ -186,11 +197,7 @@ namespace MarkDown.UWP.ViewModel
         {
             if (IsModified)
             {
-                var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
-                dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); NewDoc(); }));
-                dlg.Commands.Add(new UICommand("Don't Save", cmd => { NewDoc(); }));
-                dlg.Commands.Add(new UICommand("Cancel"));
-                await dlg.ShowAsync();
+                await App.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, ()=>ShowSaveConfirmDialog());
             }
             else
                 NewDoc();            
@@ -204,7 +211,8 @@ namespace MarkDown.UWP.ViewModel
                 var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
                 dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); await Open(file); }));
                 dlg.Commands.Add(new UICommand("Don't Save", async cmd => { await Open(file); }));
-                dlg.Commands.Add(new UICommand("Cancel"));
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+                    dlg.Commands.Add(new UICommand("Cancel"));
                 await dlg.ShowAsync();
             }
             else
