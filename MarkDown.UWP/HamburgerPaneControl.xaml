@@ -18,17 +18,17 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <controls:HamburgerMenuButton Content="New" Command="{Binding NewCommand}">
+            <controls:HamburgerMenuButton x:Uid="NewButton" Command="{Binding NewCommand}">
                 <controls:HamburgerMenuButton.Icon>
                     <FontIcon FontSize="16" Glyph="&#xE8F4;" />
                 </controls:HamburgerMenuButton.Icon>
-            </controls:HamburgerMenuButton>  
-            <controls:HamburgerMenuButton Content="Open" Command="{Binding OpenCommand}">
+            </controls:HamburgerMenuButton>
+            <controls:HamburgerMenuButton x:Uid="OpenButton" Command="{Binding OpenCommand}">
                 <controls:HamburgerMenuButton.Icon>
                     <FontIcon FontSize="16" Glyph="&#xE8DA;" />
                 </controls:HamburgerMenuButton.Icon>
             </controls:HamburgerMenuButton>
-            <controls:HamburgerMenuButton Content="Save" Command="{Binding SaveCommand}">
+            <controls:HamburgerMenuButton x:Uid="SaveButton" Command="{Binding SaveCommand}">
                 <controls:HamburgerMenuButton.Icon>
                     <FontIcon FontSize="16" Glyph="&#xE74E;" />
                 </controls:HamburgerMenuButton.Icon>
@@ -36,8 +36,8 @@
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="2">
-            <controls:HamburgerMenuButton x:Name="ShowPreviewButton" Icon="Sync" Content="Show Preview" IsChecked="{Binding IsShowPreview,Mode=TwoWay}" Click="ShowPreviewButton_Click"></controls:HamburgerMenuButton>
-            <controls:HamburgerMenuButton Content="Settings">
+            <controls:HamburgerMenuButton x:Uid="ShowPreviewButton" x:Name="ShowPreviewButton" Icon="Sync" IsChecked="{Binding IsShowPreview,Mode=TwoWay}" Click="ShowPreviewButton_Click"></controls:HamburgerMenuButton>
+            <controls:HamburgerMenuButton x:Uid="SettingsButton">
                 <controls:HamburgerMenuButton.Icon>
                     <FontIcon FontSize="16" Glyph="&#xE713;" />
                 </controls:HamburgerMenuButton.Icon>

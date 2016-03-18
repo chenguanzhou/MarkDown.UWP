@@ -53,9 +53,9 @@ namespace MarkDown.UWP.ViewModel
             base.Cleanup();
         }
 
-        static ResourceLoader loader = new ResourceLoader();
+        static ResourceLoader resourceLoader = new ResourceLoader();
 
-        static public string AppName => loader.GetString("AppName");
+        static public string AppName => resourceLoader.GetString("AppName");
 
         public async Task BackUp()
         {           
@@ -116,7 +116,7 @@ namespace MarkDown.UWP.ViewModel
 
         public string Title => DocumentTitle + (IsModified ? "(*)" : "");
 
-        public string documentTitle = loader.GetString("UntitledTitle");
+        public string documentTitle = resourceLoader.GetString("UntitledTitle");
         public string DocumentTitle
         {
             get { return documentTitle; }
@@ -277,7 +277,7 @@ namespace MarkDown.UWP.ViewModel
         public void NewDoc()
         {
             Content = "";
-            DocumentTitle = loader.GetString("UntitledTitle");
+            DocumentTitle = resourceLoader.GetString("UntitledTitle");
             DocumentFile = null;
             FileEncoding = Encoding.UTF8;
             IsModified = false;

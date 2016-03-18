@@ -118,24 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppName" xml:space="preserve">
-    <value>MarkDown.UWP</value>
+    <value>MarkDown.UWP 编辑器</value>
   </data>
   <data name="NewButton.Content" xml:space="preserve">
-    <value>New</value>
+    <value>新建</value>
   </data>
   <data name="OpenButton.Content" xml:space="preserve">
-    <value>Open</value>
+    <value>打开</value>
   </data>
   <data name="SaveButton.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
   </data>
   <data name="SettingsButton.Content" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
   </data>
   <data name="ShowPreviewButton.Content" xml:space="preserve">
-    <value>Show Preview</value>
+    <value>显示预览</value>
   </data>
   <data name="UntitledTitle" xml:space="preserve">
-    <value>Untitled</value>
+    <value>无标题</value>
   </data>
 </root>
