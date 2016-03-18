@@ -85,6 +85,14 @@ namespace MarkDown.UWP.ViewModel
                 if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("FileEncoding"))
                     FileEncoding = Encoding.GetEncoding((int)ApplicationData.Current.LocalSettings.Values["FileEncoding"]);
 
+                //First Time Open
+                if (!ApplicationData.Current.LocalSettings.Values.Keys.Contains("HasEditorOpened"))
+                {
+                    Content = resourceLoader.GetString("FirstDocumentContent");
+                    ApplicationData.Current.LocalSettings.Values["HasEditorOpened"] = true;
+                    return;
+                }
+
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
                 StorageFile file;
                 try
@@ -264,16 +272,6 @@ namespace MarkDown.UWP.ViewModel
 
         #region Documents Commands
 
-        //private async void ShowSaveConfirmDialog()
-        //{
-        //    var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
-        //    dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); NewDoc(); }));
-        //    dlg.Commands.Add(new UICommand("Don't Save", cmd => { NewDoc(); }));
-        //    if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
-        //        dlg.Commands.Add(new UICommand("Cancel"));
-        //    await dlg.ShowAsync();
-        //}
-
         public void NewDoc()
         {
             Content = "";
@@ -287,12 +285,11 @@ namespace MarkDown.UWP.ViewModel
         {
             if (IsModified)
             {
-                //await App.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, ()=>ShowSaveConfirmDialog());
-                var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
-                dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); NewDoc(); }));
-                dlg.Commands.Add(new UICommand("Don't Save", cmd => { NewDoc(); }));
+                var dlg = new MessageDialog(resourceLoader.GetString("WhetherSave"), DocumentTitle);
+                dlg.Commands.Add(new UICommand(resourceLoader.GetString("Save"), async cmd => { await Save(); NewDoc(); }));
+                dlg.Commands.Add(new UICommand(resourceLoader.GetString("NoSave"), cmd => { NewDoc(); }));
                 if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
-                    dlg.Commands.Add(new UICommand("Cancel"));
+                    dlg.Commands.Add(new UICommand(resourceLoader.GetString("Cancel")));
                 await dlg.ShowAsync();
             }
             else
@@ -304,11 +301,11 @@ namespace MarkDown.UWP.ViewModel
         {
             if (IsModified)
             {
-                var dlg = new MessageDialog($"Whether to save the unsaved changes of {DocumentTitle}?", "Unsaved Changes");
-                dlg.Commands.Add(new UICommand("Save", async cmd => { await Save(); await Open(file); }));
-                dlg.Commands.Add(new UICommand("Don't Save", async cmd => { await Open(file); }));
+                var dlg = new MessageDialog(resourceLoader.GetString("WhetherSave"), DocumentTitle);
+                dlg.Commands.Add(new UICommand(resourceLoader.GetString("Save"), async cmd => { await Save(); await Open(file); }));
+                dlg.Commands.Add(new UICommand(resourceLoader.GetString("NoSave"), async cmd => { await Open(file); }));
                 if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
-                    dlg.Commands.Add(new UICommand("Cancel"));
+                    dlg.Commands.Add(new UICommand(resourceLoader.GetString("Cancel")));
                 await dlg.ShowAsync();
             }
             else
@@ -358,7 +355,7 @@ namespace MarkDown.UWP.ViewModel
             {
                 var picker = new FileSavePicker();
                 picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-                picker.FileTypeChoices.Add("Markdown document", new List<string>() { ".md", ".markdown" });
+                picker.FileTypeChoices.Add(resourceLoader.GetString("MarkdownDocument"), new List<string>() { ".md", ".markdown" });
                 picker.SuggestedFileName = DocumentTitle;
                 StorageFile file = await picker.PickSaveFileAsync();
                 if (file != null)

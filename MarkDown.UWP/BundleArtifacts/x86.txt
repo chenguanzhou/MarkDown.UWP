@@ -1,1 +1,1 @@
-MainPackage=C:\Users\cgz\Documents\code\c#\MarkDown.UWP\MarkDown.UWP\bin\x86\Release\MarkDown.UWP_1.1.10.0_x86.appx
+MainPackage=C:\Users\cgz\Documents\code\c#\MarkDown.UWP\MarkDown.UWP\bin\x86\Release\MarkDown.UWP_1.1.11.0_x86.appx

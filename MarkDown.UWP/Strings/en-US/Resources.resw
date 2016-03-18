@@ -120,11 +120,59 @@
   <data name="AppName" xml:space="preserve">
     <value>MarkDown.UWP</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="FirstDocumentContent" xml:space="preserve">
+    <value>Welcome to MarkDown.UWP!
+===================
+
+
+Hey! I'm your first Markdown document in **MarkDown.UWP**.
+
+## Documents
+
+MarkDown.UWP can work both online and offline. It can open markdown documents in your PC/Phone or in OneDrive.
+
+## Markdown Support
+
+MarkDown.UWP supports CommonMark grammar:
+
+- **Bold** *Italic*
+- [HyperLink](https://github.com/chenguanzhou)
+- ![Image](https://avatars3.githubusercontent.com/u/3325132?v=3&amp;s=460)
+- Order List &amp; Unorder List
+	- SubList
+- #### Heading
+- Horizontal Rule
+	---------------
+- &gt;Quote
+- Code Block: 
+```
+// Foo
+var bar = 0;
+```
+
+## Features
+
+- Markdown.UWP can open local document, and **auto-detect** file encoding (Including GB1213 &amp; BIG5)
+- Markdown.UWP supports HTML **live** preview, which you can decide whether to show.
+- Markdown.UWP will **save** your data when the App close.</value>
+  </data>
+  <data name="MarkdownDocument" xml:space="preserve">
+    <value>Markdown document</value>
+  </data>
   <data name="NewButton.Content" xml:space="preserve">
     <value>New</value>
   </data>
+  <data name="NoSave" xml:space="preserve">
+    <value>Don't Save</value>
+  </data>
   <data name="OpenButton.Content" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="SaveButton.Content" xml:space="preserve">
     <value>Save</value>
@@ -137,5 +185,8 @@
   </data>
   <data name="UntitledTitle" xml:space="preserve">
     <value>Untitled</value>
+  </data>
+  <data name="WhetherSave" xml:space="preserve">
+    <value>Whether to save the unsaved changes?</value>
   </data>
 </root>

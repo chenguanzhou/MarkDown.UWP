@@ -39,7 +39,7 @@ namespace MarkDown.UWP
             using (var writer = new StringWriter())
             {
                 var setting = CommonMarkSettings.Default.Clone();
-                setting.AdditionalFeatures = CommonMarkAdditionalFeatures.All;
+                setting.AdditionalFeatures = CommonMarkAdditionalFeatures.None;
                 setting.RenderSoftLineBreaksAsLineBreaks = true;
                 CommonMarkConverter.Convert(reader, writer, setting);
                 return writer.ToString();

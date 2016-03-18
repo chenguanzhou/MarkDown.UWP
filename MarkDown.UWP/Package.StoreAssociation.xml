@@ -362,6 +362,7 @@
     <ReservedNames>
       <ReservedName>MarkDown编辑器</ReservedName>
       <ReservedName>MarkDown.UWP</ReservedName>
+      <ReservedName>MarkDown.UWP 编辑器</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames />

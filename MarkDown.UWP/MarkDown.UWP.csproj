@@ -146,6 +146,8 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="codemirror\addon\display\fullscreen.css" />
     <Content Include="codemirror\addon\display\fullscreen.js" />
+    <Content Include="codemirror\addon\scroll\simplescrollbars.css" />
+    <Content Include="codemirror\addon\scroll\simplescrollbars.js" />
     <Content Include="codemirror\addon\selection\active-line.js" />
     <Content Include="codemirror\lib\codemirror.css" />
     <Content Include="codemirror\lib\codemirror.js" />
