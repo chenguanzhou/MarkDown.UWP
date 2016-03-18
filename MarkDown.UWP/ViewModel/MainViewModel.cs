@@ -20,6 +20,7 @@ using System.Windows.Input;
 using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Windows.System.Profile;
 using Windows.UI.Popups;
 
@@ -72,6 +73,7 @@ namespace MarkDown.UWP.ViewModel
             await FileIO.WriteTextAsync(file, obj.ToString());
 
             ApplicationData.Current.LocalSettings.Values["IsShowPreview"] = IsShowPreview;
+            ApplicationData.Current.LocalSettings.Values["FileEncoding"] = FileEncoding.CodePage;
         }
 
         public async Task Restore()
@@ -80,6 +82,8 @@ namespace MarkDown.UWP.ViewModel
             {
                 if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("IsShowPreview"))
                     IsShowPreview = (bool)ApplicationData.Current.LocalSettings.Values["IsShowPreview"];
+                if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("FileEncoding"))
+                    FileEncoding = Encoding.GetEncoding((int)ApplicationData.Current.LocalSettings.Values["FileEncoding"]);
 
                 StorageFolder localFolder = ApplicationData.Current.LocalFolder;
                 StorageFile file;
@@ -132,6 +136,8 @@ namespace MarkDown.UWP.ViewModel
                 Set(ref documentFile, value);
             }
         }
+
+        public Encoding FileEncoding { get; set; } = Encoding.UTF8;
 
         public bool isModified = false;
         public bool IsModified
@@ -273,6 +279,7 @@ namespace MarkDown.UWP.ViewModel
             Content = "";
             DocumentTitle = loader.GetString("UntitledTitle");
             DocumentFile = null;
+            FileEncoding = Encoding.UTF8;
             IsModified = false;
         }
 
@@ -324,8 +331,8 @@ namespace MarkDown.UWP.ViewModel
             }
 
             var buffer = await FileIO.ReadBufferAsync(file);
-            var encoder = SimpleHelpers.FileEncoding.DetectFileEncoding(buffer.AsStream(), Encoding.UTF8);
-            var reader = new StreamReader(buffer.AsStream(), encoder);
+            FileEncoding = SimpleHelpers.FileEncoding.DetectFileEncoding(buffer.AsStream(), Encoding.UTF8);
+            var reader = new StreamReader(buffer.AsStream(), FileEncoding);
 
             Content = reader.ReadToEnd().Replace("\r\n","\n");
             DocumentFile = file;
@@ -373,7 +380,10 @@ namespace MarkDown.UWP.ViewModel
 
         private async void SaveDoc2File(StorageFile file)
         {
-            await FileIO.WriteTextAsync(file, Content);
+            //await FileIO.WriteTextAsync(file, Content);
+
+            var bytes = FileEncoding.GetBytes(Content);
+            await FileIO.WriteBytesAsync(file, bytes);
         }
 
         #endregion

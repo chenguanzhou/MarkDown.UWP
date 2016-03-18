@@ -96,8 +96,7 @@ namespace MarkDown.UWP
                 {
                     Header = new HamburgerTitleBar(),
                     Pane = new HamburgerPaneControl() { DataContext = ViewModelLocator.Main},
-                    OpenPaneLength = 200,
-                    IsPaneOpen = false
+                    OpenPaneLength = 200
                 };
 
                 Binding binding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
