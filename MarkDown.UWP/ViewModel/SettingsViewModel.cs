@@ -61,7 +61,7 @@ namespace MarkDown.UWP.ViewModel
             useLightTheme = value;
             RaisePropertyChanged("UseLightTheme");
             ApplicationData.Current.LocalSettings.Values["UseLightTheme"] = useLightTheme;
-            var dlg = new MessageDialog("");
+            var dlg = new MessageDialog("restart by hand");
             if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
             {
                 dlg.Content = MainViewModel.ResourceLoader.GetString("EffectAfterRestart");
@@ -74,7 +74,6 @@ namespace MarkDown.UWP.ViewModel
             {
                 dlg.Commands.Add(new UICommand("exit app", async cmd =>
                 {
-                    dlg.Content = "restart by hand";
                     await ViewModelLocator.Main.BackUp();
                     ((App)App.Current).Exit();
                 }));
