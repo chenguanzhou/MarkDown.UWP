@@ -1,6 +1,6 @@
 #region *   License     *
 /*
-    SimpleHelpers - FileEncoding   
+    SimpleHelpers - FileEncoding
 
     Copyright © 2014 Khalid Salomão
 
@@ -23,7 +23,7 @@
     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-    OTHER DEALINGS IN THE SOFTWARE. 
+    OTHER DEALINGS IN THE SOFTWARE.
 
     License: http://www.opensource.org/licenses/mit-license.php
     Website: https://github.com/khalidsalomao/SimpleHelpers.Net
@@ -81,7 +81,7 @@ namespace SimpleHelpers
         {
             var det = new FileEncoding ();
             det.Detect (inputData, start, count);
-            return det.Complete () ?? defaultIfNotDetected;            
+            return det.Complete () ?? defaultIfNotDetected;
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace SimpleHelpers
         {
             if (rawData.Length < count || count < 4 || start + 1 >= count)
                 return true;
-                        
+
             if (CheckForByteOrderMark (rawData, start))
             {
                 return true;
@@ -153,7 +153,7 @@ namespace SimpleHelpers
             // is text if there is no null byte sequences or less than 10% of the buffer has control caracteres
             return nullSequences == 0 && (controlSequences <= (rawData.Length / 10));
         }
-  
+
         /// <summary>
         /// Detects if data has bytes order mark to indicate its encoding for textual data.
         /// </summary>
@@ -191,7 +191,7 @@ namespace SimpleHelpers
 
         Ude.CharsetDetector ude = new Ude.CharsetDetector ();
         bool _started = false;
-        
+
 
         /// <summary>
         /// If the detection has reached a decision.
@@ -280,7 +280,7 @@ namespace SimpleHelpers
                 IsText = true;
             }
 
-            // execute charset detector                
+            // execute charset detector
             ude.Feed (inputData, start, count);
             ude.DataEnd ();
             if (ude.IsDone () && !String.IsNullOrEmpty (ude.Charset))
@@ -327,7 +327,7 @@ namespace SimpleHelpers
             {
                 // vote for best encoding
                 EncodingName = singleEncodings.GroupBy (i => i)
-                    .OrderByDescending (i => i.Count () * 
+                    .OrderByDescending (i => i.Count () *
                     (i.Key.StartsWith ("UTF-32") ? 2 :
                     i.Key.StartsWith ("UTF-16") ? 1.8 :
                     i.Key.StartsWith ("UTF-8") ? 1.5 :

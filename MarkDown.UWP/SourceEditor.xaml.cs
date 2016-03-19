@@ -70,7 +70,10 @@ namespace MarkDown.UWP
                          if (editor.IsLoaded)
                              await editor.sourceEditor.InvokeScriptAsync("setContent", new string[] { editor.CodeContent });
                          else
+                         {
                              editor.IsLoadContentDelay = true;
+                             editor.IsEnabled = false;
+                         }
                      }
                  }
                  catch (Exception ex)
@@ -110,9 +113,7 @@ namespace MarkDown.UWP
             {
                 SetValue(ScrollRatioProperty, value);
             }
-        }
-
-        
+        }        
 
         public bool IsLoadContentDelay { get; set; } = false;
 
@@ -124,6 +125,7 @@ namespace MarkDown.UWP
             {
                 await sourceEditor.InvokeScriptAsync("setContent", new string[] { CodeContent });
                 IsLoadContentDelay = false;
+                IsEnabled = true;
             }
 
         }

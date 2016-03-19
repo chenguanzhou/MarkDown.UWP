@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutItem.Header" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>MarkDown.UWP</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="EditorItem.Header" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="EffectAfterRestart" xml:space="preserve">
+    <value>Take effect after the restart</value>
+  </data>
+  <data name="EnvironmentItem.Header" xml:space="preserve">
+    <value>Environment</value>
   </data>
   <data name="FirstDocumentContent" xml:space="preserve">
     <value>Welcome to MarkDown.UWP!
@@ -159,6 +174,9 @@ var bar = 0;
 - Markdown.UWP supports HTML **live** preview, which you can decide whether to show.
 - Markdown.UWP will **save** your data when the App close.</value>
   </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
   <data name="MarkdownDocument" xml:space="preserve">
     <value>Markdown document</value>
   </data>
@@ -171,17 +189,32 @@ var bar = 0;
   <data name="OpenButton.Content" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="PreviewItem.Header" xml:space="preserve">
+    <value>Preview</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="SaveButton.Content" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="SettingsButton.Content" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="ShowPreviewButton.Content" xml:space="preserve">
     <value>Show Preview</value>
+  </data>
+  <data name="ThemeItem.Header" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="ThemeItem.OffContent" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeItem.OnContent" xml:space="preserve">
+    <value>Light</value>
   </data>
   <data name="UntitledTitle" xml:space="preserve">
     <value>Untitled</value>

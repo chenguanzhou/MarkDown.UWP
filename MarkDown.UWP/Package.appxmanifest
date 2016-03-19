@@ -42,6 +42,9 @@
             </uap:SupportedFileTypes>
           </uap:FileTypeAssociation>
         </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="markdownuwp" />
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

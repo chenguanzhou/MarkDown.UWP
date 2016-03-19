@@ -130,6 +130,7 @@
     <Compile Include="SourceEditor.xaml.cs">
       <DependentUpon>SourceEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
   </ItemGroup>

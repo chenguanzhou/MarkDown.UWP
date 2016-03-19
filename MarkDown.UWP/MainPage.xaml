@@ -14,7 +14,8 @@
         <con:HalfConverter x:Key="halfConverter"></con:HalfConverter>
     </Page.Resources>
 
-    <Grid x:Name="grid" Tag="{Binding NarrowState,Mode=TwoWay}" 
+    <Grid x:Name="grid"           
+          Tag="{Binding NarrowState,Mode=TwoWay}" 
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">       
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowSizeStates">

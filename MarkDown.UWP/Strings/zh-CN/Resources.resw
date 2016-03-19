@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutItem.Header" xml:space="preserve">
+    <value>关于</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>MarkDown.UWP 编辑器</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="EditorItem.Header" xml:space="preserve">
+    <value>编辑器</value>
+  </data>
+  <data name="EffectAfterRestart" xml:space="preserve">
+    <value>重启后生效</value>
+  </data>
+  <data name="EnvironmentItem.Header" xml:space="preserve">
+    <value>环境</value>
   </data>
   <data name="FirstDocumentContent" xml:space="preserve">
     <value>欢迎使用 MarkDown.UWP 编辑器!
@@ -164,6 +179,9 @@ var bar = 0;
 
 ![](https://raw.githubusercontent.com/chenguanzhou/MarkDownEditor/master/MarkDownEditor/alipay.jpg)</value>
   </data>
+  <data name="Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
   <data name="MarkdownDocument" xml:space="preserve">
     <value>Markdown文档</value>
   </data>
@@ -176,17 +194,32 @@ var bar = 0;
   <data name="OpenButton.Content" xml:space="preserve">
     <value>打开</value>
   </data>
+  <data name="PreviewItem.Header" xml:space="preserve">
+    <value>预览</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
   </data>
   <data name="SaveButton.Content" xml:space="preserve">
     <value>保存</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
   <data name="SettingsButton.Content" xml:space="preserve">
     <value>设置</value>
   </data>
   <data name="ShowPreviewButton.Content" xml:space="preserve">
     <value>显示预览</value>
+  </data>
+  <data name="ThemeItem.Header" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="ThemeItem.OffContent" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="ThemeItem.OnContent" xml:space="preserve">
+    <value>浅色</value>
   </data>
   <data name="UntitledTitle" xml:space="preserve">
     <value>无标题</value>

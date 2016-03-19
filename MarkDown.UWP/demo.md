@@ -21,7 +21,7 @@ MarkDown.UWP supports CommonMark grammar:
 - Horizontal Rule
 	---------------
 - >Quote
-- Code Block: 
+- Code Block:
 ```
 // Foo
 var bar = 0;
@@ -32,6 +32,3 @@ var bar = 0;
 - Markdown.UWP can open local document, and **auto-detect** file encoding (Including GB1213 & BIG5)
 - Markdown.UWP supports HTML **live** preview, which you can decide whether to show.
 - Markdown.UWP will **save** your data when the App close.
-
-
-

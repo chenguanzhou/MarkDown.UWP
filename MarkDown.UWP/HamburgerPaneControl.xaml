@@ -5,6 +5,7 @@
     xmlns:local="using:MarkDown.UWP"
     xmlns:controls="using:Cimbalino.Toolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    DataContext="{Binding Main,Source={StaticResource Locator}}"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -37,7 +38,12 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="2">
             <controls:HamburgerMenuButton x:Uid="ShowPreviewButton" x:Name="ShowPreviewButton" Icon="Sync" IsChecked="{Binding IsShowPreview,Mode=TwoWay}" Click="ShowPreviewButton_Click"></controls:HamburgerMenuButton>
-            <controls:HamburgerMenuButton x:Uid="SettingsButton">
+            <controls:HamburgerMenuButton Content="Edit" NavigationSourcePageType="local:MainPage" Icon="Edit">
+                <!--<controls:HamburgerMenuButton.Icon>
+                    <FontIcon FontSize="16" Glyph="&#xE713;" />
+                </controls:HamburgerMenuButton.Icon>-->
+            </controls:HamburgerMenuButton>
+            <controls:HamburgerMenuButton x:Uid="SettingsButton" NavigationSourcePageType="local:SettingPage">
                 <controls:HamburgerMenuButton.Icon>
                     <FontIcon FontSize="16" Glyph="&#xE713;" />
                 </controls:HamburgerMenuButton.Icon>

@@ -53,9 +53,11 @@ namespace MarkDown.UWP.ViewModel
             base.Cleanup();
         }
 
-        static ResourceLoader resourceLoader = new ResourceLoader();
+        public static ResourceLoader ResourceLoader = new ResourceLoader();
 
-        static public string AppName => resourceLoader.GetString("AppName");
+        static public string AppName => ResourceLoader.GetString("AppName");
+
+        public SettingsViewModel SettingsViewModel { get; } = new SettingsViewModel();
 
         public async Task BackUp()
         {           
@@ -88,7 +90,7 @@ namespace MarkDown.UWP.ViewModel
                 //First Time Open
                 if (!ApplicationData.Current.LocalSettings.Values.Keys.Contains("HasEditorOpened"))
                 {
-                    Content = resourceLoader.GetString("FirstDocumentContent");
+                    Content = ResourceLoader.GetString("FirstDocumentContent");
                     ApplicationData.Current.LocalSettings.Values["HasEditorOpened"] = true;
                     return;
                 }
@@ -124,7 +126,7 @@ namespace MarkDown.UWP.ViewModel
 
         public string Title => DocumentTitle + (IsModified ? "(*)" : "");
 
-        public string documentTitle = resourceLoader.GetString("UntitledTitle");
+        public string documentTitle = ResourceLoader.GetString("UntitledTitle");
         public string DocumentTitle
         {
             get { return documentTitle; }
@@ -275,7 +277,7 @@ namespace MarkDown.UWP.ViewModel
         public void NewDoc()
         {
             Content = "";
-            DocumentTitle = resourceLoader.GetString("UntitledTitle");
+            DocumentTitle = ResourceLoader.GetString("UntitledTitle");
             DocumentFile = null;
             FileEncoding = Encoding.UTF8;
             IsModified = false;
@@ -285,11 +287,11 @@ namespace MarkDown.UWP.ViewModel
         {
             if (IsModified)
             {
-                var dlg = new MessageDialog(resourceLoader.GetString("WhetherSave"), DocumentTitle);
-                dlg.Commands.Add(new UICommand(resourceLoader.GetString("Save"), async cmd => { await Save(); NewDoc(); }));
-                dlg.Commands.Add(new UICommand(resourceLoader.GetString("NoSave"), cmd => { NewDoc(); }));
+                var dlg = new MessageDialog(ResourceLoader.GetString("WhetherSave"), DocumentTitle);
+                dlg.Commands.Add(new UICommand(ResourceLoader.GetString("Save"), async cmd => { await Save(); NewDoc(); }));
+                dlg.Commands.Add(new UICommand(ResourceLoader.GetString("NoSave"), cmd => { NewDoc(); }));
                 if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
-                    dlg.Commands.Add(new UICommand(resourceLoader.GetString("Cancel")));
+                    dlg.Commands.Add(new UICommand(ResourceLoader.GetString("Cancel")));
                 await dlg.ShowAsync();
             }
             else
@@ -301,11 +303,11 @@ namespace MarkDown.UWP.ViewModel
         {
             if (IsModified)
             {
-                var dlg = new MessageDialog(resourceLoader.GetString("WhetherSave"), DocumentTitle);
-                dlg.Commands.Add(new UICommand(resourceLoader.GetString("Save"), async cmd => { await Save(); await Open(file); }));
-                dlg.Commands.Add(new UICommand(resourceLoader.GetString("NoSave"), async cmd => { await Open(file); }));
+                var dlg = new MessageDialog(ResourceLoader.GetString("WhetherSave"), DocumentTitle);
+                dlg.Commands.Add(new UICommand(ResourceLoader.GetString("Save"), async cmd => { await Save(); await Open(file); }));
+                dlg.Commands.Add(new UICommand(ResourceLoader.GetString("NoSave"), async cmd => { await Open(file); }));
                 if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
-                    dlg.Commands.Add(new UICommand(resourceLoader.GetString("Cancel")));
+                    dlg.Commands.Add(new UICommand(ResourceLoader.GetString("Cancel")));
                 await dlg.ShowAsync();
             }
             else
@@ -355,7 +357,7 @@ namespace MarkDown.UWP.ViewModel
             {
                 var picker = new FileSavePicker();
                 picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-                picker.FileTypeChoices.Add(resourceLoader.GetString("MarkdownDocument"), new List<string>() { ".md", ".markdown" });
+                picker.FileTypeChoices.Add(ResourceLoader.GetString("MarkdownDocument"), new List<string>() { ".md", ".markdown" });
                 picker.SuggestedFileName = DocumentTitle;
                 StorageFile file = await picker.PickSaveFileAsync();
                 if (file != null)

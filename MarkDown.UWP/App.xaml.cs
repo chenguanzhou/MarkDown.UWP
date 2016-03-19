@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,9 +41,12 @@ namespace MarkDown.UWP
             this.Resuming += OnResuming;
             this.Suspending += OnSuspending;
             this.UnhandledException += OnUnhandledException;
-        }
 
-        //public static Windows.UI.Core.CoreDispatcher Dispatcher;
+            if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") && (bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"])
+                RequestedTheme = ApplicationTheme.Light;
+            else
+                RequestedTheme = ApplicationTheme.Dark;
+        }        
 
         private async void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
@@ -49,6 +54,51 @@ namespace MarkDown.UWP
             await new MessageDialog("Application Unhandled Exception:\r\n" + e.Exception.Message, "Error :(")
                 .ShowAsync();
         }
+
+        public async Task Restart()
+        {
+            await ViewModelLocator.Main.BackUp();
+            App.Current.Exit();
+            await Launcher.LaunchUriAsync(new Uri("markdownuwp:"));
+        }
+
+        protected override async void OnActivated(IActivatedEventArgs args)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (rootFrame == null)
+            {
+                // Create a Frame to act as the navigation context and navigate to the first page
+
+                //rootFrame = new Frame();
+                rootFrame = new HamburgerFrame()
+                {
+                    Header = new HamburgerTitleBar(),
+                    Pane = new HamburgerPaneControl(),
+                    OpenPaneLength = 200
+                };
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.Navigated += OnNavigated;
+
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
+            }
+
+            if (rootFrame.Content == null)
+            {
+                // When the navigation stack isn't restored navigate to the first page,
+                // configuring the new page by passing required information as a navigation
+                // parameter
+                rootFrame.Navigate(typeof(MainPage));
+                await ViewModelLocator.Main.Restore();
+            }
+            // Ensure the current window is active
+            Window.Current.Activate();
+        }
+
 
         /// <summary>
         /// Should be called from OnActivated and OnLaunched
@@ -95,15 +145,12 @@ namespace MarkDown.UWP
                 rootFrame = new HamburgerFrame()
                 {
                     Header = new HamburgerTitleBar(),
-                    Pane = new HamburgerPaneControl() { DataContext = ViewModelLocator.Main},
+                    Pane = new HamburgerPaneControl(),
                     OpenPaneLength = 200
-                };
-
-                Binding binding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
-                BindingOperations.SetBinding(((HamburgerTitleBar)(((HamburgerFrame)rootFrame).Header)), HamburgerTitleBar.TitleProperty, binding);
-
+                };             
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.Navigated += OnNavigated;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -124,6 +171,24 @@ namespace MarkDown.UWP
             }
             // Ensure the current window is active
             Window.Current.Activate();
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            var rootFrame = (HamburgerFrame)sender;
+            var pane = (HamburgerPaneControl)rootFrame.Pane;
+            if (e.SourcePageType == typeof(MainPage))
+            {
+                Binding binding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
+                BindingOperations.SetBinding(((HamburgerTitleBar)((rootFrame).Header)), HamburgerTitleBar.TitleProperty, binding);
+            }
+            else
+            {
+                if (e.SourcePageType == typeof(SettingPage))
+                {
+                    ((HamburgerTitleBar)(rootFrame.Header)).Title = MainViewModel.ResourceLoader.GetString("Settings");
+                }
+            }
         }
 
         /// <summary>
@@ -175,16 +240,13 @@ namespace MarkDown.UWP
                 rootFrame = new HamburgerFrame()
                 {
                     Header = new HamburgerTitleBar(),
-                    Pane = new HamburgerPaneControl() { DataContext = ViewModelLocator.Main },
+                    Pane = new HamburgerPaneControl(),
                     OpenPaneLength = 200,
                     IsPaneOpen = false
                 };
 
-                Binding binding = new Binding() { Source = ViewModelLocator.Main, Path = new PropertyPath("Title") };
-                BindingOperations.SetBinding(((HamburgerTitleBar)(((HamburgerFrame)rootFrame).Header)), HamburgerTitleBar.TitleProperty, binding);
-
-
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.Navigated += OnNavigated;
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;

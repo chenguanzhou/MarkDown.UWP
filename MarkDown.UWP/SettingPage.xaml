@@ -5,9 +5,27 @@
     xmlns:local="using:MarkDown.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding Main,Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{Binding SettingsViewModel}">
+        <Pivot>
+            <PivotItem x:Uid="EnvironmentItem" DataContext="{Binding SettingsEnvironmentViewModel}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <ToggleSwitch x:Uid="ThemeItem" IsOn ="{Binding UseLightTheme,Mode=TwoWay}"></ToggleSwitch>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem x:Uid="EditorItem">
 
+            </PivotItem>
+            <PivotItem x:Uid="PreviewItem">
+
+            </PivotItem>
+            <PivotItem x:Uid="AboutItem">
+
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>
