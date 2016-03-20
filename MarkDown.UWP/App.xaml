@@ -2,10 +2,11 @@
     x:Class="MarkDown.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MarkDown.UWP">
+    xmlns:local="using:MarkDown.UWP"
+    xmlns:con="using:MarkDown.UWP.Converters">
     <Application.Resources>
         <ResourceDictionary>
-            <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:MarkDown.UWP.ViewModel" />            
+            <vm:ViewModelLocator x:Key="Locator" xmlns:vm="using:MarkDown.UWP.ViewModel" />
         </ResourceDictionary>
     </Application.Resources>
 

@@ -70,10 +70,7 @@ namespace MarkDown.UWP
                          if (editor.IsLoaded)
                              await editor.sourceEditor.InvokeScriptAsync("setContent", new string[] { editor.CodeContent });
                          else
-                         {
-                             editor.IsLoadContentDelay = true;
-                             editor.IsEnabled = false;
-                         }
+                             editor.ShouldDelayLoad = true;
                      }
                  }
                  catch (Exception ex)
@@ -115,19 +112,45 @@ namespace MarkDown.UWP
             }
         }        
 
-        public bool IsLoadContentDelay { get; set; } = false;
-
         public bool IsLoaded { get; set; } = false;
+        public bool ShouldDelayLoad { get; set; } = false;
+        private void sourceEditor_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            IsLoaded = false;
+            IsEnabled = false;
+        }
         private async void sourceEditor_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
             IsLoaded = true;
-            if (IsLoadContentDelay)
+            if (ShouldDelayLoad)
             {
                 await sourceEditor.InvokeScriptAsync("setContent", new string[] { CodeContent });
-                IsLoadContentDelay = false;
+                await sourceEditor.InvokeScriptAsync("setFontFamily", new string[] { FontFamily });
                 IsEnabled = true;
+                ShouldDelayLoad = false;
             }
 
+        }
+
+        /// <summary>
+        /// DependencyProperty for the FontFamily binding. 
+        /// </summary>
+        public new static DependencyProperty FontFamilyProperty =
+            DependencyProperty.Register("FontFamily", typeof(string), typeof(SourceEditor),
+            new PropertyMetadata(default(string), async (obj, args) =>
+            {
+                SourceEditor editor = (SourceEditor)obj;
+                if (editor.IsLoaded)
+                    await editor.sourceEditor.InvokeScriptAsync("setFontFamily", new string[] { editor.FontFamily });
+            }));
+
+        /// <summary>
+        /// Provide access to the FontFamily.
+        /// </summary>
+        public new string FontFamily
+        {
+            get { return (string)GetValue(FontFamilyProperty); }
+            set { SetValue(FontFamilyProperty, value); }
         }
     }
 }

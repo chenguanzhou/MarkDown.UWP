@@ -17,8 +17,15 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem x:Uid="EditorItem">
-
+            <PivotItem x:Uid="EditorItem" DataContext="{Binding SettingsEditorViewModel}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical">
+                        <ComboBox Header="Font Family" 
+                                  SelectedItem="{Binding FontFamily,Mode=TwoWay}"
+                                  ItemsSource="{Binding AllSupportedFonts}">
+                        </ComboBox>
+                    </StackPanel>
+                </ScrollViewer>
             </PivotItem>
             <PivotItem x:Uid="PreviewItem">
 

@@ -25,6 +25,20 @@ namespace MarkDown.UWP
             this.InitializeComponent();
         }
 
+        private async void preview_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            if (args.Uri != null)
+            {
+                args.Cancel = true;
+                await Launcher.LaunchUriAsync(args.Uri);
+            }
+        }
+
+        private async void preview_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            await preview.InvokeScriptAsync("eval", new string[] { $"scrollTo(0, {ScrollOffsetRatio} * (document.body.scrollHeight - window.innerHeight))" });
+        }
+
         /// <summary>
         /// DependencyProperty for the TextEditor SelectionStart property. 
         /// </summary>
@@ -68,20 +82,6 @@ namespace MarkDown.UWP
         {
             get { return (double)GetValue(ScrollOffsetRatioProperty); }
             set { SetValue(ScrollOffsetRatioProperty, value); }
-        }
-
-        private async void preview_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            if (args.Uri != null)
-            {
-                args.Cancel = true;
-                await Launcher.LaunchUriAsync(args.Uri);
-            }
-        }
-
-        private async void preview_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-            await preview.InvokeScriptAsync("eval", new string[] { $"scrollTo(0, {ScrollOffsetRatio} * (document.body.scrollHeight - window.innerHeight))" });
         }
     }
 }

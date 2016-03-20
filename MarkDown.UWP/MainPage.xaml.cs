@@ -38,6 +38,10 @@ namespace MarkDown.UWP
             VisualStateManager.GoToState(this, grid.ActualWidth > 720 ? "WideState" : "NarrowState", false);
         }
 
+        internal class ComboBoxItem
+        {
+        }
+
         //private void Grid_KeyUp(object sender, KeyRoutedEventArgs e)
         //{
         //    if (e.Key == VirtualKey.Control) isCtrlKeyPressed = false;

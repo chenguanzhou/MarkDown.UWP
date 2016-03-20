@@ -87,6 +87,23 @@ namespace MarkDown.UWP.ViewModel
 
     public class SettingsEditorViewModel : ViewModelBase
     {
+        public SettingsEditorViewModel()
+        {
+        }
+
+        private string fontFamily = ApplicationData.Current.LocalSettings.Values.Keys.Contains("FontFamily")? 
+            ((string)ApplicationData.Current.LocalSettings.Values["FontFamily"]) : "sans-serif";
+        public string FontFamily
+        {
+            get { return fontFamily; }
+            set
+            {
+                Set(ref fontFamily,value);
+                ApplicationData.Current.LocalSettings.Values["FontFamily"] = value;
+            }
+        }
+
+        public string[] AllSupportedFonts { get; } = new string[] { "Arial", "Calibri", "Comic Sans", "Monospace", "sans-serif" , "Times New Roman", "Verdana" };
 
     }
 

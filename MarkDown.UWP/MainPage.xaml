@@ -44,7 +44,10 @@
                 <ColumnDefinition Width="{Binding PreviewWidth}"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <local:SourceEditor Padding="5" CodeContent="{Binding Content,Mode=TwoWay}" ScrollRatio="{Binding ScrollRatio,Mode=TwoWay}"/>
+            <local:SourceEditor Padding="5" 
+                                FontFamily="{Binding SettingsViewModel.SettingsEditorViewModel.FontFamily}"
+                                CodeContent="{Binding Content,Mode=TwoWay}" 
+                                ScrollRatio="{Binding ScrollRatio,Mode=TwoWay}"/>
 
             <local:Preview Grid.Column="1" Padding="5"
                            PreviewHTML="{Binding PreviewHTML,Mode=TwoWay}" 
