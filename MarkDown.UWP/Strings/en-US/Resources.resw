@@ -129,6 +129,9 @@
   <data name="Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
+  <data name="EditButton.Content" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="EditorItem.Header" xml:space="preserve">
     <value>Editor</value>
   </data>

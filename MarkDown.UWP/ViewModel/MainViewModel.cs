@@ -59,6 +59,8 @@ namespace MarkDown.UWP.ViewModel
 
         public SettingsViewModel SettingsViewModel { get; } = new SettingsViewModel();
 
+        static public bool IsDesktopPlatform { get; } = AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop";
+
         public async Task BackUp()
         {           
             JObject obj = new JObject();
@@ -178,7 +180,7 @@ namespace MarkDown.UWP.ViewModel
         MarkDownProcessor processor = new MarkDownProcessor();
         private async void UpdatePreviewHTML()
         {
-            PreviewHTML = await processor.MD2HTML(Content, AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Desktop");
+            PreviewHTML = await processor.MD2HTML(Content, !IsDesktopPlatform);
         }
 
         private string previewHTML = "";
@@ -231,7 +233,7 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
-        public bool showPreview = false;
+        public bool showPreview = IsDesktopPlatform;
         public bool IsShowPreview
         {
             get { return showPreview; }
@@ -290,7 +292,7 @@ namespace MarkDown.UWP.ViewModel
                 var dlg = new MessageDialog(ResourceLoader.GetString("WhetherSave"), DocumentTitle);
                 dlg.Commands.Add(new UICommand(ResourceLoader.GetString("Save"), async cmd => { await Save(); NewDoc(); }));
                 dlg.Commands.Add(new UICommand(ResourceLoader.GetString("NoSave"), cmd => { NewDoc(); }));
-                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+                if (IsDesktopPlatform)
                     dlg.Commands.Add(new UICommand(ResourceLoader.GetString("Cancel")));
                 await dlg.ShowAsync();
             }
@@ -306,7 +308,7 @@ namespace MarkDown.UWP.ViewModel
                 var dlg = new MessageDialog(ResourceLoader.GetString("WhetherSave"), DocumentTitle);
                 dlg.Commands.Add(new UICommand(ResourceLoader.GetString("Save"), async cmd => { await Save(); await Open(file); }));
                 dlg.Commands.Add(new UICommand(ResourceLoader.GetString("NoSave"), async cmd => { await Open(file); }));
-                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+                if (IsDesktopPlatform)
                     dlg.Commands.Add(new UICommand(ResourceLoader.GetString("Cancel")));
                 await dlg.ShowAsync();
             }

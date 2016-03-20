@@ -129,6 +129,9 @@
   <data name="Dark" xml:space="preserve">
     <value>深色</value>
   </data>
+  <data name="EditButton.Content" xml:space="preserve">
+    <value>编辑</value>
+  </data>
   <data name="EditorItem.Header" xml:space="preserve">
     <value>编辑器</value>
   </data>
@@ -155,7 +158,7 @@ HI! 这是你在**MarkDown.UWP 编辑器**编辑的第一个文档.
 
 - **加粗** *倾斜*
 - [超链接](http://www.chenguanzhou.com/)
-- ![Image](https://avatars3.githubusercontent.com/u/3325132?v=3&amp;s=460)
+- ![图片](https://avatars3.githubusercontent.com/u/3325132?v=3&amp;s=460)
 - 顺序列表 &amp; 无序列表
 	- 子列表项
 - #### 多级标题

@@ -11,19 +11,19 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{Binding SettingsViewModel}">
         <Pivot>
             <PivotItem x:Uid="EnvironmentItem" DataContext="{Binding SettingsEnvironmentViewModel}">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto">
                     <StackPanel Orientation="Vertical">
                         <ToggleSwitch x:Uid="ThemeItem" IsOn ="{Binding UseLightTheme,Mode=TwoWay}"></ToggleSwitch>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
             <PivotItem x:Uid="EditorItem" DataContext="{Binding SettingsEditorViewModel}">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto">
                     <StackPanel Orientation="Vertical">
-                        <ComboBox Header="Font Family" 
-                                  SelectedItem="{Binding FontFamily,Mode=TwoWay}"
-                                  ItemsSource="{Binding AllSupportedFonts}">
-                        </ComboBox>
+                        <AutoSuggestBox Header="Font Family" ItemsSource="{Binding AllSupportedFonts}" Text="{Binding FontFamily,Mode=TwoWay}"></AutoSuggestBox>
+                        <Frame Height="20"></Frame>
+                        <ToggleSwitch Header="Line Wrapping" IsOn="{Binding IsLineWrapping,Mode=TwoWay}"></ToggleSwitch>
+                        <ToggleSwitch Header="Show Line Number" IsOn="{Binding IsShowLineNumber,Mode=TwoWay}"></ToggleSwitch>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>

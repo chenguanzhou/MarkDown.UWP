@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,6 +25,28 @@ namespace MarkDown.UWP
         public SourceEditor()
         {
             this.InitializeComponent();
+        }
+
+        public bool IsLoaded { get; set; } = false;
+        public bool ShouldDelayLoad { get; set; } = false;
+        private void sourceEditor_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            IsLoaded = false;
+            IsEnabled = false;
+        }
+        private async void sourceEditor_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            IsLoaded = true;
+            if (ShouldDelayLoad)
+            {
+                await sourceEditor.InvokeScriptAsync("setContent", new string[] { CodeContent });
+                await sourceEditor.InvokeScriptAsync("setFontFamily", new string[] { FontFamily });
+                await sourceEditor.InvokeScriptAsync("setLineWrapping", new string[] { IsLineWrapping ? "true" : "" });
+                await sourceEditor.InvokeScriptAsync("setShowLineNumber", new string[] { IsShowLineNumber ? "true" : "" });
+                IsEnabled = true;
+                ShouldDelayLoad = false;
+            }
+
         }
 
         private void srcView_ScriptNotify(object sender, NotifyEventArgs e)
@@ -112,26 +135,6 @@ namespace MarkDown.UWP
             }
         }        
 
-        public bool IsLoaded { get; set; } = false;
-        public bool ShouldDelayLoad { get; set; } = false;
-        private void sourceEditor_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            IsLoaded = false;
-            IsEnabled = false;
-        }
-        private async void sourceEditor_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-            IsLoaded = true;
-            if (ShouldDelayLoad)
-            {
-                await sourceEditor.InvokeScriptAsync("setContent", new string[] { CodeContent });
-                await sourceEditor.InvokeScriptAsync("setFontFamily", new string[] { FontFamily });
-                IsEnabled = true;
-                ShouldDelayLoad = false;
-            }
-
-        }
-
         /// <summary>
         /// DependencyProperty for the FontFamily binding. 
         /// </summary>
@@ -151,6 +154,48 @@ namespace MarkDown.UWP
         {
             get { return (string)GetValue(FontFamilyProperty); }
             set { SetValue(FontFamilyProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for the LineWrapping binding. 
+        /// </summary>
+        public static DependencyProperty IsLineWrappingProperty =
+            DependencyProperty.Register("IsLineWrapping", typeof(bool), typeof(SourceEditor),
+            new PropertyMetadata(default(bool), async (obj, args) =>
+            {
+                SourceEditor editor = (SourceEditor)obj;
+                if (editor.IsLoaded)
+                    await editor.sourceEditor.InvokeScriptAsync("setLineWrapping", new string[] { editor.IsLineWrapping ? "true":"" });
+            }));
+
+        /// <summary>
+        /// Provide access to the LineWrapping.
+        /// </summary>
+        public bool IsLineWrapping
+        {
+            get { return (bool)GetValue(IsLineWrappingProperty); }
+            set { SetValue(IsLineWrappingProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for the LineWrapping binding. 
+        /// </summary>
+        public static DependencyProperty IsShowLineNumberProperty =
+            DependencyProperty.Register("IsShowLineNumber", typeof(bool), typeof(SourceEditor),
+            new PropertyMetadata(default(bool), async (obj, args) =>
+            {
+                SourceEditor editor = (SourceEditor)obj;
+                if (editor.IsLoaded)
+                    await editor.sourceEditor.InvokeScriptAsync("setShowLineNumber", new string[] { editor.IsShowLineNumber ? "true" : "" });
+            }));
+
+        /// <summary>
+        /// Provide access to the LineWrapping.
+        /// </summary>
+        public bool IsShowLineNumber
+        {
+            get { return (bool)GetValue(IsShowLineNumberProperty); }
+            set { SetValue(IsShowLineNumberProperty, value); }
         }
     }
 }

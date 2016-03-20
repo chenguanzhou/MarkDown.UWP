@@ -41,7 +41,7 @@ namespace MarkDown.UWP.ViewModel
     {
         public SettingsEnvironmentViewModel()
         {
-            useLightTheme = ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") && ((bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"]);
+            useLightTheme = !(ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") && !((bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"]));
         }
 
         private bool useLightTheme = false;
@@ -62,7 +62,7 @@ namespace MarkDown.UWP.ViewModel
             RaisePropertyChanged("UseLightTheme");
             ApplicationData.Current.LocalSettings.Values["UseLightTheme"] = useLightTheme;
             var dlg = new MessageDialog("restart by hand");
-            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop")
+            if (MainViewModel.IsDesktopPlatform)
             {
                 dlg.Content = MainViewModel.ResourceLoader.GetString("EffectAfterRestart");
                 dlg.Commands.Add(new UICommand("restart", async cmd =>
@@ -81,8 +81,6 @@ namespace MarkDown.UWP.ViewModel
             dlg.Commands.Add(new UICommand("cancel"));
             await dlg.ShowAsync();
         }
-
-        public Dictionary<string,string> AllThemes = new Dictionary<string, string>() { { MainViewModel.ResourceLoader.GetString("Light"), "Light" }, { MainViewModel.ResourceLoader.GetString("Dark"), "Dark" } };
     }
 
     public class SettingsEditorViewModel : ViewModelBase
@@ -105,6 +103,30 @@ namespace MarkDown.UWP.ViewModel
 
         public string[] AllSupportedFonts { get; } = new string[] { "Arial", "Calibri", "Comic Sans", "Monospace", "sans-serif" , "Times New Roman", "Verdana" };
 
+
+        private bool isLineWrapping = ApplicationData.Current.LocalSettings.Values.Keys.Contains("IsLineWrapping") ?
+            ((bool)ApplicationData.Current.LocalSettings.Values["IsLineWrapping"]) : true;
+        public bool IsLineWrapping
+        {
+            get { return isLineWrapping; }
+            set
+            {
+                Set(ref isLineWrapping, value);
+                ApplicationData.Current.LocalSettings.Values["IsLineWrapping"] = value;
+            }
+        }
+
+        private bool isShowLineNumber = ApplicationData.Current.LocalSettings.Values.Keys.Contains("IsShowLineNumber") ?
+            ((bool)ApplicationData.Current.LocalSettings.Values["IsShowLineNumber"]) : true;
+        public bool IsShowLineNumber
+        {
+            get { return isShowLineNumber; }
+            set
+            {
+                Set(ref isShowLineNumber, value);
+                ApplicationData.Current.LocalSettings.Values["IsShowLineNumber"] = value;
+            }
+        }
     }
 
     public class SettingsPreviewViewModel : ViewModelBase

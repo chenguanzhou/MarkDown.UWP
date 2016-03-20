@@ -42,24 +42,26 @@ namespace MarkDown.UWP
             this.Suspending += OnSuspending;
             this.UnhandledException += OnUnhandledException;
 
-            if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") && (bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"])
-                RequestedTheme = ApplicationTheme.Light;
-            else
+            if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") && !(bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"])
                 RequestedTheme = ApplicationTheme.Dark;
+            else
+                RequestedTheme = ApplicationTheme.Light;
         }        
 
         private async void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            await new MessageDialog("Application Unhandled Exception:\r\n" + e.Exception.Message, "Error :(")
+            await new MessageDialog("Application Unhandled Exception:\r\n" + e.Exception.StackTraceEx(), "Error :(")
                 .ShowAsync();
         }
 
         public async Task Restart()
         {
             await ViewModelLocator.Main.BackUp();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            Launcher.LaunchUriAsync(new Uri("markdownuwp:"));
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             App.Current.Exit();
-            await Launcher.LaunchUriAsync(new Uri("markdownuwp:"));
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)

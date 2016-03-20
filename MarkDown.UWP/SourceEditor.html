@@ -34,7 +34,6 @@
             styleActiveLine: true,
             lineNumbers: true,
             fullScreen: true,
-            lineWrapping: true,
             mode: "markdown",
             scrollbarStyle: "simple",
             dragDrop: false
@@ -70,6 +69,13 @@
             myCodeMirror.getWrapperElement().style.fontFamily = font;
         }
 
+        var setLineWrapping = function (v) {
+            myCodeMirror.setOption("lineWrapping", v);
+        }
+
+        var setShowLineNumber = function (v) {
+            myCodeMirror.setOption("lineNumbers", v);
+        }
     </script>
 </body>
 </html>

@@ -109,25 +109,25 @@
     </Compile>
     <Compile Include="Converters\HalfConverter.cs" />
     <Compile Include="ExceptionHandlingSynchronizationContext.cs" />
-    <Compile Include="HamburgerPaneControl.xaml.cs">
+    <Compile Include="View\HamburgerPaneControl.xaml.cs">
       <DependentUpon>HamburgerPaneControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MarkDownPage.xaml.cs">
+    <Compile Include="View\MarkDownPage.xaml.cs">
       <DependentUpon>MarkDownPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MarkDownProcessor.cs" />
-    <Compile Include="Preview.xaml.cs">
+    <Compile Include="View\Preview.xaml.cs">
       <DependentUpon>Preview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingPage.xaml.cs">
+    <Compile Include="View\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SimpleHelpers\FileEncoding.cs" />
-    <Compile Include="SourceEditor.xaml.cs">
+    <Compile Include="View\SourceEditor.xaml.cs">
       <DependentUpon>SourceEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -246,27 +246,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="HamburgerPaneControl.xaml">
+    <Page Include="View\HamburgerPaneControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MarkDownPage.xaml">
+    <Page Include="View\MarkDownPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Preview.xaml">
+    <Page Include="View\Preview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingPage.xaml">
+    <Page Include="View\SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SourceEditor.xaml">
+    <Page Include="View\SourceEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
