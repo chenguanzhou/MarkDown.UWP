@@ -127,6 +127,30 @@ namespace MarkDown.UWP.ViewModel
                 ApplicationData.Current.LocalSettings.Values["IsShowLineNumber"] = value;
             }
         }
+
+        private bool lineWiseCopyCut = ApplicationData.Current.LocalSettings.Values.Keys.Contains("LineWiseCopyCut") ?
+            ((bool)ApplicationData.Current.LocalSettings.Values["LineWiseCopyCut"]) : true;
+        public bool LineWiseCopyCut
+        {
+            get { return lineWiseCopyCut; }
+            set
+            {
+                Set(ref lineWiseCopyCut, value);
+                ApplicationData.Current.LocalSettings.Values["LineWiseCopyCut"] = value;
+            }
+        }
+
+        private int undoDepth = ApplicationData.Current.LocalSettings.Values.Keys.Contains("UndoDepth") ?
+            ((int)ApplicationData.Current.LocalSettings.Values["UndoDepth"]) : 200;
+        public int UndoDepth
+        {
+            get { return undoDepth; }
+            set
+            {
+                Set(ref undoDepth, value);
+                ApplicationData.Current.LocalSettings.Values["UndoDepth"] = value;
+            }
+        }
     }
 
     public class SettingsPreviewViewModel : ViewModelBase
