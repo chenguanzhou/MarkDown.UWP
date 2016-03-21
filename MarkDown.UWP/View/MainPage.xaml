@@ -49,7 +49,8 @@
                                 ScrollRatio="{Binding ScrollRatio,Mode=TwoWay}"
                                 FontFamily="{Binding SettingsViewModel.SettingsEditorViewModel.FontFamily}"
                                 IsLineWrapping="{Binding SettingsViewModel.SettingsEditorViewModel.IsLineWrapping}"
-                                IsShowLineNumber="{Binding SettingsViewModel.SettingsEditorViewModel.IsShowLineNumber}"/>
+                                IsShowLineNumber="{Binding SettingsViewModel.SettingsEditorViewModel.IsShowLineNumber}">
+            </local:SourceEditor>
 
             <local:Preview Grid.Column="1" Padding="5"
                            PreviewHTML="{Binding PreviewHTML,Mode=TwoWay}" 
