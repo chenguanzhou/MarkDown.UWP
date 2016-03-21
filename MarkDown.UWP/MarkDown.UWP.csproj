@@ -16,12 +16,12 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>MarkDown.UWP_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>MarkDown.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>C484D7580D21D030C3543F99F075756EA50838AC</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>6BC2DDC19B6E61113E7308E89BA8DB55579C447E</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -142,10 +142,19 @@
     <Content Include="Assets\Square310x310Logo.scale-200.png" />
     <Content Include="Assets\Square310x310Logo.scale-400.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="codemirror\addon\dialog\dialog.css" />
+    <Content Include="codemirror\addon\dialog\dialog.js" />
     <Content Include="codemirror\addon\display\fullscreen.css" />
     <Content Include="codemirror\addon\display\fullscreen.js" />
+    <Content Include="codemirror\addon\edit\continuelist.js" />
     <Content Include="codemirror\addon\scroll\simplescrollbars.css" />
     <Content Include="codemirror\addon\scroll\simplescrollbars.js" />
+    <Content Include="codemirror\addon\search\jump-to-line.js" />
+    <Content Include="codemirror\addon\search\match-highlighter.js" />
+    <Content Include="codemirror\addon\search\matchesonscrollbar.css" />
+    <Content Include="codemirror\addon\search\matchesonscrollbar.js" />
+    <Content Include="codemirror\addon\search\search.js" />
+    <Content Include="codemirror\addon\search\searchcursor.js" />
     <Content Include="codemirror\addon\selection\active-line.js" />
     <Content Include="codemirror\lib\codemirror.css" />
     <Content Include="codemirror\lib\codemirror.js" />

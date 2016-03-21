@@ -40,9 +40,10 @@ namespace MarkDown.UWP
             if (ShouldDelayLoad)
             {
                 await sourceEditor.InvokeScriptAsync("setContent", new string[] { CodeContent });
-                await sourceEditor.InvokeScriptAsync("setFontFamily", new string[] { FontFamily });
+                await sourceEditor.InvokeScriptAsync("setFontFamily", new string[] { FontFamily }); 
                 await sourceEditor.InvokeScriptAsync("setLineWrapping", new string[] { IsLineWrapping ? "true" : "" });
                 await sourceEditor.InvokeScriptAsync("setShowLineNumber", new string[] { IsShowLineNumber ? "true" : "" });
+                await sourceEditor.InvokeScriptAsync("setStyleActiveLine", new string[] { StyleActiveLine ? "true" : "" });
                 IsEnabled = true;
                 ShouldDelayLoad = false;
             }
@@ -196,6 +197,27 @@ namespace MarkDown.UWP
         {
             get { return (bool)GetValue(IsShowLineNumberProperty); }
             set { SetValue(IsShowLineNumberProperty, value); }
+        }        
+        
+        /// <summary>
+        /// DependencyProperty for the LineWrapping binding. 
+        /// </summary>
+        public static DependencyProperty StyleActiveLineProperty =
+            DependencyProperty.Register("StyleActiveLine", typeof(bool), typeof(SourceEditor),
+            new PropertyMetadata(default(bool), async (obj, args) =>
+            {
+                SourceEditor editor = (SourceEditor)obj;
+                if (editor.IsLoaded)
+                    await editor.sourceEditor.InvokeScriptAsync("setStyleActiveLine", new string[] { editor.StyleActiveLine ? "true" : "" });
+            }));
+
+        /// <summary>
+        /// Provide access to the LineWrapping.
+        /// </summary>
+        public bool StyleActiveLine
+        {
+            get { return (bool)GetValue(StyleActiveLineProperty); }
+            set { SetValue(StyleActiveLineProperty, value); }
         }
     }
 }

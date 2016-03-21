@@ -7,8 +7,14 @@
     <script src="codemirror/lib/codemirror.js"></script>
     <script src="codemirror/mode/markdown/markdown.js"></script>
     <script src="codemirror/addon/selection/active-line.js"></script>
+    <script src="codemirror/addon/dialog/dialog.js"></script>
     <script src="codemirror/addon/display/fullscreen.js"></script>
+    <script src="codemirror/addon/edit/continuelist.js"></script>
     <script src="codemirror/addon/scroll/simplescrollbars.js"></script>
+    <script src="codemirror/addon/search/search.js"></script>
+    <script src="codemirror/addon/search/searchcursor.js"></script>
+    <script src="codemirror/addon/search/jump-to-line.js"></script>
+    <link rel="stylesheet" href="codemirror/addon/dialog/dialog.css">
     <link rel="stylesheet" href="codemirror/addon/display/fullscreen.css">
     <link rel="stylesheet" href="codemirror/addon/scroll/simplescrollbars.css">
     <!--<style type="text/css">
@@ -30,16 +36,16 @@
         document.getElementsByTagName("head")[0].appendChild(fileref);
 
         var myCodeMirror = CodeMirror(document.getElementById("source"), {
-            value: "",
-            styleActiveLine: true,
-            lineNumbers: true,
             fullScreen: true,
             mode: "markdown",
             scrollbarStyle: "overlay",
             dragDrop: false
         });
 
-        
+        myCodeMirror.setOption("extraKeys", {
+            "Enter": "newlineAndIndentContinueMarkdownList",
+            "Ctrl-F": "findPersistent"
+        });        
 
         myCodeMirror.on("change", function () {
             window.external.notify("change");
@@ -75,6 +81,10 @@
 
         var setShowLineNumber = function (v) {
             myCodeMirror.setOption("lineNumbers", v);
+        }
+
+        var setStyleActiveLine = function (v) {
+            myCodeMirror.setOption("styleActiveLine", v);
         }
     </script>
 </body>

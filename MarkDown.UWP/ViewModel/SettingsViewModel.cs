@@ -127,6 +127,18 @@ namespace MarkDown.UWP.ViewModel
                 ApplicationData.Current.LocalSettings.Values["IsShowLineNumber"] = value;
             }
         }
+
+        private bool styleActiveLine = ApplicationData.Current.LocalSettings.Values.Keys.Contains("StyleActiveLine") ?
+            ((bool)ApplicationData.Current.LocalSettings.Values["StyleActiveLine"]) : true;
+        public bool StyleActiveLine
+        {
+            get { return styleActiveLine; }
+            set
+            {
+                Set(ref styleActiveLine, value);
+                ApplicationData.Current.LocalSettings.Values["StyleActiveLine"] = value;
+            }
+        }
     }
 
     public class SettingsPreviewViewModel : ViewModelBase

@@ -24,6 +24,7 @@
                         <Frame Height="20"></Frame>
                         <ToggleSwitch Header="Line Wrapping" IsOn="{Binding IsLineWrapping,Mode=TwoWay}"></ToggleSwitch>
                         <ToggleSwitch Header="Show Line Number" IsOn="{Binding IsShowLineNumber,Mode=TwoWay}"></ToggleSwitch>
+                        <ToggleSwitch Header="Style Active Line" IsOn="{Binding StyleActiveLine,Mode=TwoWay}"></ToggleSwitch>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
