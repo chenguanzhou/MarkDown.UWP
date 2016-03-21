@@ -20,7 +20,7 @@ using Windows.Web.Http;
 
 namespace MarkDown.UWP
 {
-    public sealed partial class SourceEditor : UserControl
+    public sealed partial class SourceEditor : Page
     {
         public SourceEditor()
         {
@@ -32,7 +32,6 @@ namespace MarkDown.UWP
         private void sourceEditor_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             IsLoaded = false;
-            IsEnabled = false;
         }
         private async void sourceEditor_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
@@ -44,7 +43,6 @@ namespace MarkDown.UWP
                 await sourceEditor.InvokeScriptAsync("setLineWrapping", new string[] { IsLineWrapping ? "true" : "" });
                 await sourceEditor.InvokeScriptAsync("setShowLineNumber", new string[] { IsShowLineNumber ? "true" : "" });
                 await sourceEditor.InvokeScriptAsync("setStyleActiveLine", new string[] { StyleActiveLine ? "true" : "" });
-                IsEnabled = true;
                 ShouldDelayLoad = false;
             }
 
@@ -218,6 +216,16 @@ namespace MarkDown.UWP
         {
             get { return (bool)GetValue(StyleActiveLineProperty); }
             set { SetValue(StyleActiveLineProperty, value); }
+        }
+
+        private async void FindButton_Click(object sender, RoutedEventArgs e)
+        {
+            await sourceEditor.InvokeScriptAsync("eval", new string[] { "myCodeMirror.execCommand('findPersistent')" });
+        }
+
+        private async void ReplaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            await sourceEditor.InvokeScriptAsync("eval", new string[] { "myCodeMirror.execCommand('replace')" });
         }
     }
 }

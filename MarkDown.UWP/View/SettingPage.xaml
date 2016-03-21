@@ -20,11 +20,11 @@
             <PivotItem x:Uid="EditorItem" DataContext="{Binding SettingsEditorViewModel}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto">
                     <StackPanel Orientation="Vertical">
-                        <AutoSuggestBox Header="Font Family" ItemsSource="{Binding AllSupportedFonts}" Text="{Binding FontFamily,Mode=TwoWay}"></AutoSuggestBox>
+                        <AutoSuggestBox x:Uid="FontFamilyBox" ItemsSource="{Binding AllSupportedFonts}" Text="{Binding FontFamily,Mode=TwoWay}"></AutoSuggestBox>
                         <Frame Height="20"></Frame>
-                        <ToggleSwitch Header="Line Wrapping" IsOn="{Binding IsLineWrapping,Mode=TwoWay}"></ToggleSwitch>
-                        <ToggleSwitch Header="Show Line Number" IsOn="{Binding IsShowLineNumber,Mode=TwoWay}"></ToggleSwitch>
-                        <ToggleSwitch Header="Style Active Line" IsOn="{Binding StyleActiveLine,Mode=TwoWay}"></ToggleSwitch>
+                        <ToggleSwitch x:Uid="LineWrappingSwitch" IsOn="{Binding IsLineWrapping,Mode=TwoWay}"></ToggleSwitch>
+                        <ToggleSwitch x:Uid="LineNumberSwitch" IsOn="{Binding IsShowLineNumber,Mode=TwoWay}"></ToggleSwitch>
+                        <ToggleSwitch x:Uid="ActiveLineSwitch" IsOn="{Binding StyleActiveLine,Mode=TwoWay}"></ToggleSwitch>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>

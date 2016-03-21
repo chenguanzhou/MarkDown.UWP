@@ -97,8 +97,20 @@
     return query;
   }
 
-  var queryDialog =
-    'Search: <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">(Use /re/ syntax for regexp search)</span>';
+
+  var searchText = navigator.language == "zh-CN" ? "查找" : "Search";
+  var searchForText = navigator.language == "zh-CN" ? "查找:" : "Search For:";
+  var useRegexText = navigator.language == "zh-CN" ?"使用 /re/ 语法进行正则表达式查询":'Use /re/ syntax for regexp search';
+  var replaceText = navigator.language == "zh-CN" ? "替换" : "Replace";
+  var replaceAllText = navigator.language == "zh-CN" ? "替换全部" : "Replace all";
+  var replaceWithText = navigator.language == "zh-CN" ? "替换为" : "Replace with:";
+  var withText = "zh-CN" ? "替换为" : "with:";
+  var yesText = "zh-CN" ? "是" : "Yes";
+  var noText = "zh-CN" ? "否" : "No";
+  var allText = "zh-CN" ? "全部" : "All";
+  var stopText = "zh-CN" ? "停止" : "Stop";
+
+  var queryDialog = searchText + ': <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">(' + useRegexText + ')</span>' 
 
   function startSearch(cm, state, query) {
     state.queryText = query;
@@ -132,7 +144,7 @@
         })
       });
     } else {
-      dialog(cm, queryDialog, "Search for:", q, function(query) {
+        dialog(cm, queryDialog, searchForText, q, function (query) {
         if (query && !state.query) cm.operation(function() {
           startSearch(cm, state, query);
           state.posFrom = state.posTo = cm.getCursor();
@@ -165,9 +177,9 @@
   });}
 
   var replaceQueryDialog =
-    ' <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">(Use /re/ syntax for regexp search)</span>';
-  var replacementQueryDialog = 'With: <input type="text" style="width: 10em" class="CodeMirror-search-field"/>';
-  var doReplaceConfirm = "Replace? <button>Yes</button> <button>No</button> <button>All</button> <button>Stop</button>";
+    ' <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">('+useRegexText+')</span>';
+  var replacementQueryDialog = withText + ' <input type="text" style="width: 10em" class="CodeMirror-search-field"/>';
+  var doReplaceConfirm = replaceText + "? <button>" + yesText + "</button> <button>" + noText + "</button> <button>" + allText + "</button> <button>" + stopText +"</button>";
 
   function replaceAll(cm, query, text) {
     cm.operation(function() {
@@ -183,11 +195,11 @@
   function replace(cm, all) {
     if (cm.getOption("readOnly")) return;
     var query = cm.getSelection() || getSearchState(cm).lastQuery;
-    var dialogText = all ? "Replace all:" : "Replace:"
+    var dialogText = (all ? replaceAllText : replaceText) + ":"
     dialog(cm, dialogText + replaceQueryDialog, dialogText, query, function(query) {
       if (!query) return;
       query = parseQuery(query);
-      dialog(cm, replacementQueryDialog, "Replace with:", "", function(text) {
+      dialog(cm, replacementQueryDialog, replaceWithText, "", function (text) {
         text = parseString(text)
         if (all) {
           replaceAll(cm, query, text)
@@ -203,7 +215,7 @@
             }
             cm.setSelection(cursor.from(), cursor.to());
             cm.scrollIntoView({from: cursor.from(), to: cursor.to()});
-            confirmDialog(cm, doReplaceConfirm, "Replace?",
+            confirmDialog(cm, doReplaceConfirm, replaceText + "?",
                           [function() {doReplace(match);}, advance,
                            function() {replaceAll(cm, query, text)}]);
           };

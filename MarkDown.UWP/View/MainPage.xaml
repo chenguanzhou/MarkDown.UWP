@@ -13,6 +13,12 @@
     <Page.Resources>
         <con:HalfConverter x:Key="halfConverter"></con:HalfConverter>
     </Page.Resources>
+    <!--<Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Minimal">
+            <AppBarButton x:Name="FindButton" Label="Search" Icon="Find"></AppBarButton>
+            <AppBarButton x:Name="ReplaceButton" Label="Replace" Icon="RepeatAll"></AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>-->
 
     <Grid x:Name="grid"           
           Tag="{Binding NarrowState,Mode=TwoWay}" 

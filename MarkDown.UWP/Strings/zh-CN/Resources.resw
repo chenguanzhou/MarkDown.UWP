@@ -120,6 +120,9 @@
   <data name="AboutItem.Header" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="ActiveLineSwitch.Header" xml:space="preserve">
+    <value>高亮当前行</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>MarkDown.UWP 编辑器</value>
   </data>
@@ -182,8 +185,17 @@ var bar = 0;
 
 ![](https://raw.githubusercontent.com/chenguanzhou/MarkDownEditor/master/MarkDownEditor/alipay.jpg)</value>
   </data>
+  <data name="FontFamilyBox.Header" xml:space="preserve">
+    <value>字体</value>
+  </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>
+  </data>
+  <data name="LineNumberSwitch.Header" xml:space="preserve">
+    <value>显示行号</value>
+  </data>
+  <data name="LineWrappingSwitch.Header" xml:space="preserve">
+    <value>自动换行</value>
   </data>
   <data name="MarkdownDocument" xml:space="preserve">
     <value>Markdown文档</value>

@@ -120,6 +120,9 @@
   <data name="AboutItem.Header" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="ActiveLineSwitch.Header" xml:space="preserve">
+    <value>Style Active Line</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>MarkDown.UWP</value>
   </data>
@@ -177,8 +180,17 @@ var bar = 0;
 - Markdown.UWP supports HTML **live** preview, which you can decide whether to show.
 - Markdown.UWP will **save** your data when the App close.</value>
   </data>
+  <data name="FontFamilyBox.Header" xml:space="preserve">
+    <value>Font Family</value>
+  </data>
   <data name="Light" xml:space="preserve">
     <value>Light</value>
+  </data>
+  <data name="LineNumberSwitch.Header" xml:space="preserve">
+    <value>Show Line Number</value>
+  </data>
+  <data name="LineWrappingSwitch.Header" xml:space="preserve">
+    <value>Line Wrapping</value>
   </data>
   <data name="MarkdownDocument" xml:space="preserve">
     <value>Markdown document</value>

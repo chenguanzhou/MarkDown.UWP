@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<Page
     x:Class="MarkDown.UWP.SourceEditor"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,9 +9,23 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <WebView Name="sourceEditor" 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WebView Name="sourceEditor" 
              Source="ms-appx-web:///SourceEditor.html" 
              ScriptNotify="srcView_ScriptNotify" 
              NavigationStarting="sourceEditor_NavigationStarting"
              NavigationCompleted="sourceEditor_NavigationCompleted"/>
-</UserControl>
+        
+        <CommandBar Grid.Row="1" IsEnabled="True" ClosedDisplayMode="Minimal" Background="{ThemeResource AppBarBackgroundThemeBrush}">
+            <AppBarButton x:Name="FindButton" Label="Search" Icon="Find" Click="FindButton_Click"></AppBarButton>
+            <AppBarButton x:Name="ReplaceButton" Label="Replace" Icon="Switch" Click="ReplaceButton_Click"></AppBarButton>
+        </CommandBar>
+    </Grid>
+    
+
+    
+</Page>
