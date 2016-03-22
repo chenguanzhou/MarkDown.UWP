@@ -20,9 +20,27 @@
              NavigationStarting="sourceEditor_NavigationStarting"
              NavigationCompleted="sourceEditor_NavigationCompleted"/>
         
-        <CommandBar Grid.Row="1" IsEnabled="True" ClosedDisplayMode="Minimal" Background="{ThemeResource AppBarBackgroundThemeBrush}">
-            <AppBarButton x:Name="FindButton" Label="Search" Icon="Find" Click="FindButton_Click"></AppBarButton>
-            <AppBarButton x:Name="ReplaceButton" Label="Replace" Icon="Switch" Click="ReplaceButton_Click"></AppBarButton>
+        <CommandBar Grid.Row="1" IsSticky="True" ClosedDisplayMode="Compact" Background="{ThemeResource AppBarBackgroundThemeBrush}">
+            <CommandBar.Content>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBox Margin="8" Width="160" PlaceholderText="Search"></TextBox>
+                    <TextBox Margin="8,0,8,8" Width="160" PlaceholderText="Replace"></TextBox>
+                </StackPanel>
+            </CommandBar.Content>
+
+            <AppBarButton Label="Find Previous" Icon="Previous"></AppBarButton>
+            <AppBarButton Label="Find Next" Icon="Next"></AppBarButton>            
+            
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Replace" Icon="Refresh"></AppBarButton>
+                <AppBarButton Label="Replace All" Icon="RepeatAll"></AppBarButton>
+                <AppBarSeparator></AppBarSeparator>
+                <AppBarToggleButton Label="Match Case"></AppBarToggleButton>
+                <AppBarToggleButton Label="Match Whole Word"></AppBarToggleButton>
+                <AppBarToggleButton Label="Regular Expression"></AppBarToggleButton>
+            </CommandBar.SecondaryCommands>
+            <!--<AppBarButton x:Name="FindButton" Label="Search" Icon="Find" Click="FindButton_Click"></AppBarButton>-->
+            <!--<AppBarButton x:Name="ReplaceButton" Label="Replace" Icon="Switch" Click="ReplaceButton_Click"></AppBarButton>-->
         </CommandBar>
     </Grid>
     

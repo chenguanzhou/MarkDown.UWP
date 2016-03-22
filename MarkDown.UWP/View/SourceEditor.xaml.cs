@@ -95,7 +95,7 @@ namespace MarkDown.UWP
                              editor.ShouldDelayLoad = true;
                      }
                  }
-                 catch (Exception ex)
+                 catch (Exception)
                  {
 
                  }
