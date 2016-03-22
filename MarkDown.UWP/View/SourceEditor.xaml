@@ -22,9 +22,9 @@
         
         <CommandBar Grid.Row="1" IsSticky="True" ClosedDisplayMode="Compact" Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <CommandBar.Content>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBox Margin="8" Width="160" PlaceholderText="Search"></TextBox>
-                    <TextBox Margin="8,0,8,8" Width="160" PlaceholderText="Replace"></TextBox>
+                <StackPanel>
+                    <TextBox Margin="8" MinWidth="120" MaxWidth="200" PlaceholderText="Search"></TextBox>
+                    <TextBox Margin="8,0,8,8" MinWidth="120" MaxWidth="200" PlaceholderText="Replace"></TextBox>
                 </StackPanel>
             </CommandBar.Content>
 
