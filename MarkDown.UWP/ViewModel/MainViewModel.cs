@@ -272,6 +272,26 @@ namespace MarkDown.UWP.ViewModel
                 Set(ref previewWidth, value);
             }
         }
+
+        public string searchText = "";
+        public string SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                Set(ref searchText, value);
+            }
+        }
+
+        public bool isSearchMactchCase = false;
+        public bool IsSearchMactchCase
+        {
+            get { return isSearchMactchCase; }
+            set
+            {
+                Set(ref isSearchMactchCase, value);
+            }
+        }
         #endregion
 
         #region Documents Commands

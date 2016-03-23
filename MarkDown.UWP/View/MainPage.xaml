@@ -56,7 +56,9 @@
                                 FontFamily="{Binding SettingsViewModel.SettingsEditorViewModel.FontFamily}"
                                 IsLineWrapping="{Binding SettingsViewModel.SettingsEditorViewModel.IsLineWrapping}"
                                 IsShowLineNumber="{Binding SettingsViewModel.SettingsEditorViewModel.IsShowLineNumber}"
-                                StyleActiveLine="{Binding SettingsViewModel.SettingsEditorViewModel.StyleActiveLine}">
+                                StyleActiveLine="{Binding SettingsViewModel.SettingsEditorViewModel.StyleActiveLine}"
+                                SearchText="{Binding SearchText,Mode=TwoWay}"
+                                IsSearchMatchCase="{Binding IsSearchMactchCase,Mode=TwoWay}">
             </local:SourceEditor>
 
             <local:Preview Grid.Column="1" Padding="5"

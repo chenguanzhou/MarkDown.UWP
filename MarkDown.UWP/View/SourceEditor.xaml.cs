@@ -39,7 +39,7 @@ namespace MarkDown.UWP
             if (ShouldDelayLoad)
             {
                 await sourceEditor.InvokeScriptAsync("setContent", new string[] { CodeContent });
-                await sourceEditor.InvokeScriptAsync("setFontFamily", new string[] { FontFamily }); 
+                await sourceEditor.InvokeScriptAsync("setFontFamily", new string[] { FontFamily });
                 await sourceEditor.InvokeScriptAsync("setLineWrapping", new string[] { IsLineWrapping ? "true" : "" });
                 await sourceEditor.InvokeScriptAsync("setShowLineNumber", new string[] { IsShowLineNumber ? "true" : "" });
                 await sourceEditor.InvokeScriptAsync("setStyleActiveLine", new string[] { StyleActiveLine ? "true" : "" });
@@ -71,6 +71,16 @@ namespace MarkDown.UWP
         {
             var ret = await sourceEditor.InvokeScriptAsync("getScrollRatio", null);
             ScrollRatio = double.Parse(ret);
+        }
+
+        private async void FindButton_Click(object sender, RoutedEventArgs e)
+        {
+            await sourceEditor.InvokeScriptAsync("eval", new string[] { "myCodeMirror.execCommand('findPersistent')" });
+        }
+
+        private async void ReplaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            await sourceEditor.InvokeScriptAsync("eval", new string[] { "myCodeMirror.execCommand('replace')" });
         }
 
         /// <summary>
@@ -110,7 +120,7 @@ namespace MarkDown.UWP
             get { return GetValue(CodeContentProperty).ToString(); }
             set
             {
-                if(CodeContent != value)
+                if (CodeContent != value)
                     SetValue(CodeContentProperty, value);
             }
         }
@@ -132,7 +142,7 @@ namespace MarkDown.UWP
             {
                 SetValue(ScrollRatioProperty, value);
             }
-        }        
+        }
 
         /// <summary>
         /// DependencyProperty for the FontFamily binding. 
@@ -164,7 +174,7 @@ namespace MarkDown.UWP
             {
                 SourceEditor editor = (SourceEditor)obj;
                 if (editor.IsLoaded)
-                    await editor.sourceEditor.InvokeScriptAsync("setLineWrapping", new string[] { editor.IsLineWrapping ? "true":"" });
+                    await editor.sourceEditor.InvokeScriptAsync("setLineWrapping", new string[] { editor.IsLineWrapping ? "true" : "" });
             }));
 
         /// <summary>
@@ -195,8 +205,8 @@ namespace MarkDown.UWP
         {
             get { return (bool)GetValue(IsShowLineNumberProperty); }
             set { SetValue(IsShowLineNumberProperty, value); }
-        }        
-        
+        }
+
         /// <summary>
         /// DependencyProperty for the LineWrapping binding. 
         /// </summary>
@@ -218,14 +228,56 @@ namespace MarkDown.UWP
             set { SetValue(StyleActiveLineProperty, value); }
         }
 
-        private async void FindButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// DependencyProperty for the LineWrapping binding. 
+        /// </summary>
+        public static DependencyProperty IsSearchMatchCaseProperty =
+            DependencyProperty.Register("IsSearchMatchCase", typeof(bool), typeof(SourceEditor),
+                new PropertyMetadata(default(bool), async (obj, args) => 
+                    {
+                        SourceEditor editor = (SourceEditor)obj;
+                        if (editor.IsLoaded)
+                            await editor.sourceEditor.InvokeScriptAsync("setSearchText", new string[] { editor.SearchText, editor.IsSearchMatchCase ? "" : "true" });
+                    }));
+
+        /// <summary>
+        /// Provide access to the LineWrapping.
+        /// </summary>
+        public bool IsSearchMatchCase
         {
-            await sourceEditor.InvokeScriptAsync("eval", new string[] { "myCodeMirror.execCommand('findPersistent')" });
+            get { return (bool)GetValue(IsSearchMatchCaseProperty); }
+            set { SetValue(IsSearchMatchCaseProperty, value); }
         }
 
-        private async void ReplaceButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// DependencyProperty for the SearchText binding. 
+        /// </summary>
+        public static DependencyProperty SearchTextProperty =
+            DependencyProperty.Register("SearchText", typeof(string), typeof(SourceEditor),
+            new PropertyMetadata(default(string), async (obj, args) =>
+            {
+                SourceEditor editor = (SourceEditor)obj;
+                if (editor.IsLoaded)
+                    await editor.sourceEditor.InvokeScriptAsync("setSearchText", new string[] { editor.SearchText, editor.IsSearchMatchCase ? "": "true" });
+            }));
+
+        /// <summary>
+        /// Provide access to the FontFamily.
+        /// </summary>
+        public string SearchText
         {
-            await sourceEditor.InvokeScriptAsync("eval", new string[] { "myCodeMirror.execCommand('replace')" });
+            get { return (string)GetValue(SearchTextProperty); }
+            set { SetValue(SearchTextProperty, value); }
+        }
+
+        private async void FindPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            await sourceEditor.InvokeScriptAsync("findPrevious", new string[] { "" });
+        }
+
+        private async void FindNext_Click(object sender, RoutedEventArgs e)
+        {
+            await sourceEditor.InvokeScriptAsync("findNext", new string[] { "" });
         }
     }
 }

@@ -23,21 +23,21 @@
         <CommandBar Grid.Row="1" IsSticky="True" ClosedDisplayMode="Compact" Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <CommandBar.Content>
                 <StackPanel>
-                    <TextBox Margin="8" MinWidth="120" MaxWidth="200" PlaceholderText="Search"></TextBox>
+                    <TextBox Margin="8" MinWidth="120" MaxWidth="200" PlaceholderText="Search" Text="{Binding SearchText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBox Margin="8,0,8,8" MinWidth="120" MaxWidth="200" PlaceholderText="Replace"></TextBox>
                 </StackPanel>
             </CommandBar.Content>
 
-            <AppBarButton Label="Find Previous" Icon="Previous"></AppBarButton>
-            <AppBarButton Label="Find Next" Icon="Next"></AppBarButton>            
+            <AppBarButton x:Name="FindPrevious" Label="Find Previous" Icon="Previous" Click="FindPrevious_Click"></AppBarButton>
+            <AppBarButton x:Name="FindNext" Label="Find Next" Icon="Next" Click="FindNext_Click"></AppBarButton>            
             
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Replace" Icon="Refresh"></AppBarButton>
                 <AppBarButton Label="Replace All" Icon="RepeatAll"></AppBarButton>
                 <AppBarSeparator></AppBarSeparator>
-                <AppBarToggleButton Label="Match Case"></AppBarToggleButton>
+                <AppBarToggleButton Label="Match Case" IsChecked="{Binding IsSearchMactchCase,Mode=TwoWay}"></AppBarToggleButton>
                 <AppBarToggleButton Label="Match Whole Word"></AppBarToggleButton>
-                <AppBarToggleButton Label="Regular Expression"></AppBarToggleButton>
+                <AppBarToggleButton Label="Use Regular Expression"></AppBarToggleButton>
             </CommandBar.SecondaryCommands>
             <!--<AppBarButton x:Name="FindButton" Label="Search" Icon="Find" Click="FindButton_Click"></AppBarButton>-->
             <!--<AppBarButton x:Name="ReplaceButton" Label="Replace" Icon="Switch" Click="ReplaceButton_Click"></AppBarButton>-->

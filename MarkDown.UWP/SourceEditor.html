@@ -86,6 +86,52 @@
         var setStyleActiveLine = function (v) {
             myCodeMirror.setOption("styleActiveLine", v);
         }
+
+        //Search
+        var searchCursor = null;
+
+        var setSearchText = function (query, isMatchCase) {
+            if (query == null || query == "") {
+                clearSearchState();
+            } else {
+                searchCursor = myCodeMirror.getSearchCursor(query, 0, isMatchCase);
+                searchCursor.findNext();
+                updateSearchState();
+            }            
+        }
+
+        var findNext = function(){
+            if (searchCursor) {
+                searchCursor.findNext();
+                updateSearchState();
+            }
+        }
+
+        var findPrevious = function () {
+            if (searchCursor) {
+                searchCursor.findPrevious();
+                updateSearchState();
+            }
+        }
+
+        function updateSearchState (){
+            if (searchCursor.from() != null) {
+                myCodeMirror.setSelection(searchCursor.from(), searchCursor.to());
+                myCodeMirror.scrollIntoView({ from: searchCursor.from(), to: searchCursor.to() });
+                //isFindNextEnabled = true;
+            } else {
+                //isFindNextEnabled = false;
+            }
+            
+            window.external.notify("SearchStateChanged");
+        }
+
+        function clearSearchState() {
+            searchCursor = null;
+            myCodeMirror.setSelection({ line: 0, ch: 0 });
+        }
+
+        //var isFindNextEnabled = false;
     </script>
 </body>
 </html>
