@@ -58,7 +58,12 @@
                                 IsShowLineNumber="{Binding SettingsViewModel.SettingsEditorViewModel.IsShowLineNumber}"
                                 StyleActiveLine="{Binding SettingsViewModel.SettingsEditorViewModel.StyleActiveLine}"
                                 SearchText="{Binding SearchText,Mode=TwoWay}"
-                                IsSearchMatchCase="{Binding IsSearchMactchCase,Mode=TwoWay}">
+                                ReplaceText="{Binding ReplaceText,Mode=TwoWay}"
+                                IsSearchMatchCase="{Binding IsSearchMactchCase,Mode=TwoWay}"
+                                IsMatchWholeWord="{Binding IsMatchWholeWord,Mode=TwoWay}"
+                                UseWildcard="{Binding UseWildcard,Mode=TwoWay}"
+                                UseRegularExpression="{Binding UseRegularExpression,Mode=TwoWay}"
+                                >
             </local:SourceEditor>
 
             <local:Preview Grid.Column="1" Padding="5"

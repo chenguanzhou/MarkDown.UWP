@@ -48,7 +48,7 @@ namespace MarkDown.UWP
 
         }
 
-        private void srcView_ScriptNotify(object sender, NotifyEventArgs e)
+        private async void srcView_ScriptNotify(object sender, NotifyEventArgs e)
         {
             if (e.Value == "change")
             {
@@ -57,6 +57,10 @@ namespace MarkDown.UWP
             else if (e.Value == "scroll")
             {
                 OnScrollChanged();
+            }
+            else
+            {
+                await new MessageDialog(e.Value).ShowAsync();
             }
         }
 
@@ -71,16 +75,6 @@ namespace MarkDown.UWP
         {
             var ret = await sourceEditor.InvokeScriptAsync("getScrollRatio", null);
             ScrollRatio = double.Parse(ret);
-        }
-
-        private async void FindButton_Click(object sender, RoutedEventArgs e)
-        {
-            await sourceEditor.InvokeScriptAsync("eval", new string[] { "myCodeMirror.execCommand('findPersistent')" });
-        }
-
-        private async void ReplaceButton_Click(object sender, RoutedEventArgs e)
-        {
-            await sourceEditor.InvokeScriptAsync("eval", new string[] { "myCodeMirror.execCommand('replace')" });
         }
 
         /// <summary>
@@ -229,7 +223,7 @@ namespace MarkDown.UWP
         }
 
         /// <summary>
-        /// DependencyProperty for the LineWrapping binding. 
+        /// DependencyProperty for the IsSearchMatchCase binding. 
         /// </summary>
         public static DependencyProperty IsSearchMatchCaseProperty =
             DependencyProperty.Register("IsSearchMatchCase", typeof(bool), typeof(SourceEditor),
@@ -237,16 +231,79 @@ namespace MarkDown.UWP
                     {
                         SourceEditor editor = (SourceEditor)obj;
                         if (editor.IsLoaded)
-                            await editor.sourceEditor.InvokeScriptAsync("setSearchText", new string[] { editor.SearchText, editor.IsSearchMatchCase ? "" : "true" });
+                            await editor.sourceEditor.InvokeScriptAsync("setSearchMatchCase", new string[] { editor.IsSearchMatchCase ? "true" : "" });
                     }));
 
         /// <summary>
-        /// Provide access to the LineWrapping.
+        /// Provide access to the IsSearchMatchCase.
         /// </summary>
         public bool IsSearchMatchCase
         {
             get { return (bool)GetValue(IsSearchMatchCaseProperty); }
             set { SetValue(IsSearchMatchCaseProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for the IsMatchWholeWord binding. 
+        /// </summary>
+        public static DependencyProperty IsMatchWholeWordProperty =
+            DependencyProperty.Register("IsMatchWholeWord", typeof(bool), typeof(SourceEditor),
+                new PropertyMetadata(default(bool), async (obj, args) =>
+                {
+                    SourceEditor editor = (SourceEditor)obj;
+                    if (editor.IsLoaded)
+                        await editor.sourceEditor.InvokeScriptAsync("setIsMatchWholeWord", new string[] { editor.IsMatchWholeWord ? "true" : "" });
+                }));
+
+        /// <summary>
+        /// Provide access to the IsMatchWholeWord.
+        /// </summary>
+        public bool IsMatchWholeWord
+        {
+            get { return (bool)GetValue(IsMatchWholeWordProperty); }
+            set { SetValue(IsMatchWholeWordProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for the UseWildcard binding. 
+        /// </summary>
+        public static DependencyProperty UseWildcardProperty =
+            DependencyProperty.Register("UseWildcard", typeof(bool), typeof(SourceEditor),
+                new PropertyMetadata(default(bool), async (obj, args) =>
+                {
+                    SourceEditor editor = (SourceEditor)obj;
+                    if (editor.IsLoaded)
+                        await editor.sourceEditor.InvokeScriptAsync("setUseWildcard", new string[] { editor.UseWildcard ? "true" : "" });
+                }));
+
+        /// <summary>
+        /// Provide access to the UseWildcard.
+        /// </summary>
+        public bool UseWildcard
+        {
+            get { return (bool)GetValue(UseWildcardProperty); }
+            set { SetValue(UseWildcardProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for the UseRegularExpression binding. 
+        /// </summary>
+        public static DependencyProperty UseRegularExpressionProperty =
+            DependencyProperty.Register("UseRegularExpression", typeof(bool), typeof(SourceEditor),
+                new PropertyMetadata(default(bool), async (obj, args) =>
+                {
+                    SourceEditor editor = (SourceEditor)obj;
+                    if (editor.IsLoaded)
+                        await editor.sourceEditor.InvokeScriptAsync("setUseRegularExpression", new string[] { editor.UseRegularExpression ? "true" : "" });
+                }));
+
+        /// <summary>
+        /// Provide access to the UseRegularExpression.
+        /// </summary>
+        public bool UseRegularExpression
+        {
+            get { return (bool)GetValue(UseRegularExpressionProperty); }
+            set { SetValue(UseRegularExpressionProperty, value); }
         }
 
         /// <summary>
@@ -258,7 +315,7 @@ namespace MarkDown.UWP
             {
                 SourceEditor editor = (SourceEditor)obj;
                 if (editor.IsLoaded)
-                    await editor.sourceEditor.InvokeScriptAsync("setSearchText", new string[] { editor.SearchText, editor.IsSearchMatchCase ? "": "true" });
+                    await editor.sourceEditor.InvokeScriptAsync("setSearchText", new string[] { editor.SearchText});
             }));
 
         /// <summary>
@@ -270,6 +327,27 @@ namespace MarkDown.UWP
             set { SetValue(SearchTextProperty, value); }
         }
 
+        /// <summary>
+        /// DependencyProperty for the ReplaceText binding. 
+        /// </summary>
+        public static DependencyProperty ReplaceTextProperty =
+            DependencyProperty.Register("ReplaceText", typeof(string), typeof(SourceEditor),
+            new PropertyMetadata(default(string), async (obj, args) =>
+            {
+                SourceEditor editor = (SourceEditor)obj;
+                if (editor.IsLoaded)
+                    await editor.sourceEditor.InvokeScriptAsync("setReplaceText", new string[] { editor.ReplaceText });
+            }));
+
+        /// <summary>
+        /// Provide access to the ReplaceText.
+        /// </summary>
+        public string ReplaceText
+        {
+            get { return (string)GetValue(ReplaceTextProperty); }
+            set { SetValue(ReplaceTextProperty, value); }
+        }
+
         private async void FindPrevious_Click(object sender, RoutedEventArgs e)
         {
             await sourceEditor.InvokeScriptAsync("findPrevious", new string[] { "" });
@@ -278,6 +356,16 @@ namespace MarkDown.UWP
         private async void FindNext_Click(object sender, RoutedEventArgs e)
         {
             await sourceEditor.InvokeScriptAsync("findNext", new string[] { "" });
+        }
+
+        private async void Replace_Click(object sender, RoutedEventArgs e)
+        {
+            await sourceEditor.InvokeScriptAsync("replace", new string[] { "" });
+        }
+
+        private async void ReplaceAll_Click(object sender, RoutedEventArgs e)
+        {
+            await sourceEditor.InvokeScriptAsync("replaceAll", new string[] { "" });
         }
     }
 }

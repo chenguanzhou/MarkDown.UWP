@@ -90,69 +90,82 @@
         //Search
         var searchCursor = null;
 
-        CodeMirror.defineOption("searchText", false, function (cm, val, old) {
-            //if (old && old != CodeMirror.Init) {
-            //    removeOverlay(cm);
-            //    clearTimeout(cm.state.matchHighlighter.timeout);
-            //    cm.state.matchHighlighter = null;
-            //    cm.off("cursorActivity", cursorActivity);
-            //}
-            //if (val) {
-            //    cm.state.matchHighlighter = new State(val);
-            //    highlightMatches(cm);
-            //    cm.on("cursorActivity", cursorActivity);
-            //}
+        CodeMirror.defineOption("searchText", "", function (cm, val, old) {
+            cm.execCommand("find");
         });
 
-        var setSearchText = function (query, isMatchCase) {
-            //if (query == null || query == "") {
-            //    clearSearchState();
+        CodeMirror.defineOption("replaceText", "", function (cm, val, old) {
+        });
 
-            //} else {
-            //    searchCursor = myCodeMirror.getSearchCursor(query, 0, isMatchCase);
-            //    searchCursor.findNext();
-            //    updateSearchState();
-            //}
+        CodeMirror.defineOption("matchWordCase", false, function (cm, val, old) {
+        });
 
-            myCodeMirror.setOption("searchText", query);
-            myCodeMirror.execCommand("find");
+        CodeMirror.defineOption("isMatchWholeWord", false, function (cm, val, old) {
+        });
+
+        CodeMirror.defineOption("useWildcards", false, function (cm, val, old) {
+        });
+
+        CodeMirror.defineOption("useRegularExpression", false, function (cm, val, old) {
+        });
+
+        var setSearchText = function (query) {
+            if (query=="")
+                myCodeMirror.setOption("searchText", query);
+            else {
+                if (myCodeMirror.getOption('useRegularExpression')) {
+                    query = "/" + query + "/";
+                } else {
+                    var useWildcards = myCodeMirror.getOption('useWildcards');
+                    var isMatchWholeWord = myCodeMirror.getOption('isMatchWholeWord');
+                    if (useWildcards)
+                        query = query.replace("\*", ".*").replace("\?", ".");
+                    if (isMatchWholeWord)
+                        query = "\\b" + query + "\\b";
+                    if (useWildcards || useWildcards)
+                        query = "/" + query + "/";
+                }
+                
+                myCodeMirror.setOption("searchText", query);
+            }
+        }
+
+        var setReplaceText = function (text) {
+            myCodeMirror.setOption("replaceText", text);
+        }
+
+
+        var setSearchMatchCase = function (v) {
+            myCodeMirror.setOption("matchWordCase", v)
+        }
+
+        var setIsMatchWholeWord = function (v) {
+            myCodeMirror.setOption("isMatchWholeWord", v)
+        }
+
+        var setUseWildcard = function (v) {
+            myCodeMirror.setOption("useWildcards", v)
+        }
+
+        var setUseRegularExpression = function (v) {
+            myCodeMirror.setOption("useRegularExpression", v)
         }
 
         var findNext = function(){
-            //if (searchCursor) {
-            //    searchCursor.findNext();
-            //    updateSearchState();
-            //}
             myCodeMirror.execCommand("findNext");
-
         }
 
         var findPrevious = function () {
-            //if (searchCursor) {
-            //    searchCursor.findPrevious();
-            //    updateSearchState();
-            //}
             myCodeMirror.execCommand("findPrev");
         }
 
-        //function updateSearchState (){
-        //    if (searchCursor.from() != null) {
-        //        myCodeMirror.setSelection(searchCursor.from(), searchCursor.to());
-        //        myCodeMirror.scrollIntoView({ from: searchCursor.from(), to: searchCursor.to() });
-        //        //isFindNextEnabled = true;
-        //    } else {
-        //        //isFindNextEnabled = false;
-        //    }
-            
-        //    window.external.notify("SearchStateChanged");
-        //}
+        var replace = function () {
+            myCodeMirror.execCommand("replace");
+        }
 
-        //function clearSearchState() {
-        //    searchCursor = null;
-        //    myCodeMirror.setSelection({ line: 0, ch: 0 });
-        //}
-
-        //var isFindNextEnabled = false;
+        var replaceAll = function () {
+            myCodeMirror.execCommand("replaceAll");
+        }
     </script>
 </body>
 </html>

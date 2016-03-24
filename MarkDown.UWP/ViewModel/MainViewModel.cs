@@ -273,6 +273,9 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
+        #endregion
+        #region Search
+
         public string searchText = "";
         public string SearchText
         {
@@ -283,6 +286,16 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
+        public string replaceText = "";
+        public string ReplaceText
+        {
+            get { return replaceText; }
+            set
+            {
+                Set(ref replaceText, value);
+            }
+        }
+
         public bool isSearchMactchCase = false;
         public bool IsSearchMactchCase
         {
@@ -290,6 +303,36 @@ namespace MarkDown.UWP.ViewModel
             set
             {
                 Set(ref isSearchMactchCase, value);
+            }
+        }
+
+        public bool isMatchWholeWord = false;
+        public bool IsMatchWholeWord
+        {
+            get { return isMatchWholeWord; }
+            set
+            {
+                Set(ref isMatchWholeWord, value);
+            }
+        }
+
+        public bool useWildcard = false;
+        public bool UseWildcard
+        {
+            get { return useWildcard; }
+            set
+            {
+                Set(ref useWildcard, value);
+            }
+        }
+
+        public bool useRegularExpression = false;
+        public bool UseRegularExpression
+        {
+            get { return useRegularExpression; }
+            set
+            {
+                Set(ref useRegularExpression, value);
             }
         }
         #endregion

@@ -48,13 +48,14 @@
     return cm.state.search || (cm.state.search = new SearchState());
   }
 
-  function queryCaseInsensitive(query) {
-    return typeof query == "string" && query == query.toLowerCase();
+  function queryCaseInsensitive(cm, query) {
+      //return typeof query == "string" && query == query.toLowerCase();
+      return !cm.getOption('matchWordCase');
   }
 
   function getSearchCursor(cm, query, pos) {
     // Heuristic: if the query string is all lowercase, do a case insensitive search.
-    return cm.getSearchCursor(query, pos, queryCaseInsensitive(query));
+    return cm.getSearchCursor(query, pos, queryCaseInsensitive(cm, query));
   }
 
   function persistentDialog(cm, text, deflt, f) {
@@ -66,9 +67,9 @@
     });
   }
 
-  function dialog(cm, text, shortText, deflt, f) {
+  function dialog(cm, text, shortText, deflt, f, userInput) {
     if (cm.openDialog) cm.openDialog(text, f, {value: deflt, selectValueOnOpen: true});
-    else f(cm.getOption("searchText"));
+    else f(userInput);
 //else f(window.prompt(shortText, deflt));
   }
 
@@ -116,12 +117,12 @@
   function startSearch(cm, state, query) {
     state.queryText = query;
     state.query = parseQuery(query);
-    cm.removeOverlay(state.overlay, queryCaseInsensitive(state.query));
-    state.overlay = searchOverlay(state.query, queryCaseInsensitive(state.query));
+    cm.removeOverlay(state.overlay, queryCaseInsensitive(cm,state.query));
+    state.overlay = searchOverlay(state.query, queryCaseInsensitive(cm,state.query));
     cm.addOverlay(state.overlay);
     if (cm.showMatchesOnScrollbar) {
       if (state.annotate) { state.annotate.clear(); state.annotate = null; }
-      state.annotate = cm.showMatchesOnScrollbar(state.query, queryCaseInsensitive(state.query));
+      state.annotate = cm.showMatchesOnScrollbar(state.query, queryCaseInsensitive(cm,state.query));
     }
   }
 
@@ -151,7 +152,7 @@
           state.posFrom = state.posTo = cm.getCursor();
           findNext(cm, rev);
         });
-      });
+      }, cm.getOption("searchText"));
     }
   }
 
@@ -203,32 +204,36 @@
       dialog(cm, replacementQueryDialog, replaceWithText, "", function (text) {
         text = parseString(text)
         if (all) {
-          replaceAll(cm, query, text)
+            replaceAll(cm, query, text)
         } else {
-          clearSearch(cm);
-          var cursor = getSearchCursor(cm, query, cm.getCursor());
-          var advance = function() {
-            var start = cursor.from(), match;
-            if (!(match = cursor.findNext())) {
-              cursor = getSearchCursor(cm, query);
-              if (!(match = cursor.findNext()) ||
-                  (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) return;
-            }
-            cm.setSelection(cursor.from(), cursor.to());
-            cm.scrollIntoView({from: cursor.from(), to: cursor.to()});
-            confirmDialog(cm, doReplaceConfirm, replaceText + "?",
-                          [function() {doReplace(match);}, advance,
-                           function() {replaceAll(cm, query, text)}]);
-          };
-          var doReplace = function(match) {
-            cursor.replace(typeof query == "string" ? text :
-                           text.replace(/\$(\d)/g, function(_, i) {return match[i];}));
+            clearSearch(cm);
+            var cursor = getSearchCursor(cm, query, cm.getCursor());
+            var advance = function () {
+                var start = cursor.from(), match;
+                if (!(match = cursor.findNext())) {
+                    cursor = getSearchCursor(cm, query);
+                    if (!(match = cursor.findNext()) ||
+                        (start && cursor.from().line == start.line && cursor.from().ch == start.ch)) return;
+                }
+                cm.setSelection(cursor.from(), cursor.to());
+                cm.scrollIntoView({ from: cursor.from(), to: cursor.to() });
+                //confirmDialog(cm, doReplaceConfirm, replaceText + "?",
+                //              [function () { doReplace(match); }, advance,
+                //               function () { replaceAll(cm, query, text) }]);
+                cursor.replace(typeof query == "string" ? text :
+                               text.replace(/\$(\d)/g, function (_, i) { return match[i]; }));
+            };
+            //var doReplace = function (match) {
+            //    cursor.replace(typeof query == "string" ? text :
+            //                   text.replace(/\$(\d)/g, function (_, i) { return match[i]; }));
+            //    advance();
+            //};
             advance();
-          };
-          advance();
         }
-      });
-    });
+        
+
+      }, cm.getOption("replaceText"));
+    }, cm.getOption("searchText"));
   }
 
   CodeMirror.commands.find = function(cm) {clearSearch(cm); doSearch(cm);};
