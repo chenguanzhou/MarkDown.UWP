@@ -142,8 +142,6 @@
     <Content Include="Assets\Square310x310Logo.scale-200.png" />
     <Content Include="Assets\Square310x310Logo.scale-400.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="codemirror\addon\dialog\dialog.css" />
-    <Content Include="codemirror\addon\dialog\dialog.js" />
     <Content Include="codemirror\addon\display\fullscreen.css" />
     <Content Include="codemirror\addon\display\fullscreen.js" />
     <Content Include="codemirror\addon\edit\continuelist.js" />

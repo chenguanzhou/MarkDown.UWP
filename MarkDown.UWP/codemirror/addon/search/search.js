@@ -68,7 +68,8 @@
 
   function dialog(cm, text, shortText, deflt, f) {
     if (cm.openDialog) cm.openDialog(text, f, {value: deflt, selectValueOnOpen: true});
-    else f(prompt(shortText, deflt));
+    else f(cm.getOption("searchText"));
+//else f(window.prompt(shortText, deflt));
   }
 
   function confirmDialog(cm, text, shortText, fs) {
@@ -104,11 +105,11 @@
   var replaceText = navigator.language == "zh-CN" ? "替换" : "Replace";
   var replaceAllText = navigator.language == "zh-CN" ? "替换全部" : "Replace all";
   var replaceWithText = navigator.language == "zh-CN" ? "替换为" : "Replace with:";
-  var withText = "zh-CN" ? "替换为" : "with:";
-  var yesText = "zh-CN" ? "是" : "Yes";
-  var noText = "zh-CN" ? "否" : "No";
-  var allText = "zh-CN" ? "全部" : "All";
-  var stopText = "zh-CN" ? "停止" : "Stop";
+  var withText = navigator.language == "zh-CN" ? "替换为" : "with:";
+  var yesText = navigator.language == "zh-CN" ? "是" : "Yes";
+  var noText = navigator.language == "zh-CN" ? "否" : "No";
+  var allText = navigator.language == "zh-CN" ? "全部" : "All";
+  var stopText = navigator.language == "zh-CN" ? "停止" : "Stop";
 
   var queryDialog = searchText + ': <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">(' + useRegexText + ')</span>' 
 
