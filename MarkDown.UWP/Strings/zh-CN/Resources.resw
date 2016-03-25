@@ -126,6 +126,12 @@
   <data name="AppName" xml:space="preserve">
     <value>MarkDown.UWP 编辑器</value>
   </data>
+  <data name="AppTitleBlock.Text" xml:space="preserve">
+    <value>MarkDown.UWP 编辑器</value>
+  </data>
+  <data name="Author.Content" xml:space="preserve">
+    <value>陈关州</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -141,8 +147,23 @@
   <data name="EffectAfterRestart" xml:space="preserve">
     <value>重启后生效</value>
   </data>
+  <data name="EffectAfterRestart4Mobile" xml:space="preserve">
+    <value>重启后生效。特别提醒：由于微软的黑锅，移动端App不能自动重启，麻烦您在退出程序后手动打开本App。</value>
+  </data>
+  <data name="EmailToMe.Content" xml:space="preserve">
+    <value>联系开发者</value>
+  </data>
   <data name="EnvironmentItem.Header" xml:space="preserve">
     <value>环境</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>退出App</value>
+  </data>
+  <data name="FindNext.Label" xml:space="preserve">
+    <value>查找下一个</value>
+  </data>
+  <data name="FindPrevious.Label" xml:space="preserve">
+    <value>查找上一个</value>
   </data>
   <data name="FirstDocumentContent" xml:space="preserve">
     <value>欢迎使用 MarkDown.UWP 编辑器!
@@ -200,6 +221,15 @@ var bar = 0;
   <data name="MarkdownDocument" xml:space="preserve">
     <value>Markdown文档</value>
   </data>
+  <data name="MatchCase.Label" xml:space="preserve">
+    <value>匹配大小写</value>
+  </data>
+  <data name="MatchWholeWord.Label" xml:space="preserve">
+    <value>匹配全词</value>
+  </data>
+  <data name="NeedToRestart" xml:space="preserve">
+    <value>需要重启App</value>
+  </data>
   <data name="NewButton.Content" xml:space="preserve">
     <value>新建</value>
   </data>
@@ -212,11 +242,26 @@ var bar = 0;
   <data name="PreviewItem.Header" xml:space="preserve">
     <value>预览</value>
   </data>
+  <data name="Replace.Label" xml:space="preserve">
+    <value>替换</value>
+  </data>
+  <data name="ReplaceAll.Label" xml:space="preserve">
+    <value>替换全部</value>
+  </data>
+  <data name="ReplaceBox.PlaceholderText" xml:space="preserve">
+    <value>替换</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>重启</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
   </data>
   <data name="SaveButton.Content" xml:space="preserve">
     <value>保存</value>
+  </data>
+  <data name="SearchBox.PlaceholderText" xml:space="preserve">
+    <value>查找</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
@@ -238,6 +283,12 @@ var bar = 0;
   </data>
   <data name="UntitledTitle" xml:space="preserve">
     <value>无标题</value>
+  </data>
+  <data name="UseRegularExpression.Label" xml:space="preserve">
+    <value>使用正则表达式</value>
+  </data>
+  <data name="UseWildcard.Label" xml:space="preserve">
+    <value>使用通配符</value>
   </data>
   <data name="WhetherSave" xml:space="preserve">
     <value>是否保存已修改的文件？</value>

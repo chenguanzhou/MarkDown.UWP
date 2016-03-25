@@ -26,7 +26,11 @@ namespace MarkDown.UWP
                 var js_css = await FileIO.ReadTextAsync(highlightJSCSSFile);
 
                 var cssFolder = await package.InstalledLocation.GetFolderAsync("css");
-                var cssFile = await cssFolder.GetFileAsync(IsMobile ? "Default.mobile.css" : "Default.css");
+
+                string fileName = "Default.css";
+                if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") && !(bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"])
+                    fileName = "Retro.css";
+                var cssFile = await cssFolder.GetFileAsync(fileName);
                 var css = await FileIO.ReadTextAsync(cssFile);
 
 

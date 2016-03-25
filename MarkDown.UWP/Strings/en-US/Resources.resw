@@ -126,6 +126,12 @@
   <data name="AppName" xml:space="preserve">
     <value>MarkDown.UWP</value>
   </data>
+  <data name="AppTitleBlock.Text" xml:space="preserve">
+    <value>MarkDown.UWP</value>
+  </data>
+  <data name="Author.Content" xml:space="preserve">
+    <value>Chen Guanzhou</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -141,8 +147,23 @@
   <data name="EffectAfterRestart" xml:space="preserve">
     <value>Take effect after the restart</value>
   </data>
+  <data name="EffectAfterRestart4Mobile" xml:space="preserve">
+    <value>Take effect after the restart. PS: For mobile platform, please start app manually after exit.</value>
+  </data>
+  <data name="EmailToMe.Content" xml:space="preserve">
+    <value>Email To Developer</value>
+  </data>
   <data name="EnvironmentItem.Header" xml:space="preserve">
     <value>Environment</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit App</value>
+  </data>
+  <data name="FindNext.Label" xml:space="preserve">
+    <value>Find Next</value>
+  </data>
+  <data name="FindPrevious.Label" xml:space="preserve">
+    <value>Find Previous</value>
   </data>
   <data name="FirstDocumentContent" xml:space="preserve">
     <value>Welcome to MarkDown.UWP!
@@ -195,6 +216,15 @@ var bar = 0;
   <data name="MarkdownDocument" xml:space="preserve">
     <value>Markdown document</value>
   </data>
+  <data name="MatchCase.Label" xml:space="preserve">
+    <value>Match Case</value>
+  </data>
+  <data name="MatchWholeWord.Label" xml:space="preserve">
+    <value>Match Whole Word</value>
+  </data>
+  <data name="NeedToRestart" xml:space="preserve">
+    <value>Need To Restart App</value>
+  </data>
   <data name="NewButton.Content" xml:space="preserve">
     <value>New</value>
   </data>
@@ -207,11 +237,26 @@ var bar = 0;
   <data name="PreviewItem.Header" xml:space="preserve">
     <value>Preview</value>
   </data>
+  <data name="Replace.Label" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="ReplaceAll.Label" xml:space="preserve">
+    <value>Replace All</value>
+  </data>
+  <data name="ReplaceBox.PlaceholderText" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="SaveButton.Content" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
@@ -233,6 +278,12 @@ var bar = 0;
   </data>
   <data name="UntitledTitle" xml:space="preserve">
     <value>Untitled</value>
+  </data>
+  <data name="UseRegularExpression.Label" xml:space="preserve">
+    <value>Use Regular Expression</value>
+  </data>
+  <data name="UseWildcard.Label" xml:space="preserve">
+    <value>Use Wildcard</value>
   </data>
   <data name="WhetherSave" xml:space="preserve">
     <value>Whether to save the unsaved changes?</value>

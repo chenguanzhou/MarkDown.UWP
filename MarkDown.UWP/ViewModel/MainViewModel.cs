@@ -46,6 +46,7 @@ namespace MarkDown.UWP.ViewModel
         public MainViewModel()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            Content = "";
         }
 
         public override void Cleanup()
@@ -162,7 +163,7 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
-        private string content = "";
+        private string content;
         public string Content
         {
             get { return content; }

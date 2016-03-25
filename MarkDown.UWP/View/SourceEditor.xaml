@@ -23,27 +23,25 @@
         <CommandBar Grid.Row="1" IsSticky="True" ClosedDisplayMode="Compact" Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <CommandBar.Content>
                 <StackPanel>
-                    <TextBox Margin="8" MinWidth="120" MaxWidth="200" PlaceholderText="Search" 
+                    <TextBox x:Uid="SearchBox" Margin="8" MinWidth="120" MaxWidth="200" 
                              Text="{Binding SearchText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    <TextBox Margin="8,0,8,8" MinWidth="120" MaxWidth="200" PlaceholderText="Replace"
+                    <TextBox x:Uid="ReplaceBox" Margin="8,0,8,8" MinWidth="120" MaxWidth="200"
                              Text="{Binding ReplaceText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </StackPanel>
             </CommandBar.Content>
 
-            <AppBarButton x:Name="FindPrevious" Label="Find Previous" Icon="Previous" Click="FindPrevious_Click"></AppBarButton>
-            <AppBarButton x:Name="FindNext" Label="Find Next" Icon="Next" Click="FindNext_Click"></AppBarButton>            
+            <AppBarButton x:Uid="FindPrevious" Icon="Previous" Click="FindPrevious_Click"></AppBarButton>
+            <AppBarButton x:Uid="FindNext" Icon="Next" Click="FindNext_Click"></AppBarButton>            
             
             <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="Replace" Label="Replace" Icon="Refresh" Click="Replace_Click"></AppBarButton>
-                <AppBarButton x:Name="ReplaceAll" Label="Replace All" Icon="RepeatAll" Click="ReplaceAll_Click"></AppBarButton>
+                <AppBarButton x:Uid="Replace" Icon="Refresh" Click="Replace_Click"></AppBarButton>
+                <AppBarButton x:Uid="ReplaceAll" Icon="RepeatAll" Click="ReplaceAll_Click"></AppBarButton>
                 <AppBarSeparator></AppBarSeparator>
-                <AppBarToggleButton Label="Match Case" IsChecked="{Binding IsSearchMactchCase,Mode=TwoWay}"></AppBarToggleButton>
-                <AppBarToggleButton Label="Match Whole Word" IsChecked="{Binding IsMatchWholeWord,Mode=TwoWay}"></AppBarToggleButton>
-                <AppBarToggleButton Label="Use Wildcard" IsChecked="{Binding UseWildcard,Mode=TwoWay}"></AppBarToggleButton>
-                <AppBarToggleButton Label="Use Regular Expression" IsChecked="{Binding UseRegularExpression,Mode=TwoWay}"></AppBarToggleButton>
-            </CommandBar.SecondaryCommands>
-            <!--<AppBarButton x:Name="FindButton" Label="Search" Icon="Find" Click="FindButton_Click"></AppBarButton>-->
-            <!--<AppBarButton x:Name="ReplaceButton" Label="Replace" Icon="Switch" Click="ReplaceButton_Click"></AppBarButton>-->
+                <AppBarToggleButton x:Uid="MatchCase" IsChecked="{Binding IsSearchMactchCase,Mode=TwoWay}"></AppBarToggleButton>
+                <AppBarToggleButton x:Uid="MatchWholeWord" IsChecked="{Binding IsMatchWholeWord,Mode=TwoWay}"></AppBarToggleButton>
+                <AppBarToggleButton x:Uid="UseWildcard" IsChecked="{Binding UseWildcard,Mode=TwoWay}"></AppBarToggleButton>
+                <AppBarToggleButton x:Uid="UseRegularExpression" IsChecked="{Binding UseRegularExpression,Mode=TwoWay}"></AppBarToggleButton>
+            </CommandBar.SecondaryCommands>           
         </CommandBar>
     </Grid>
     

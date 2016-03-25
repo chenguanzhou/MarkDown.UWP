@@ -28,11 +28,16 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
-            <PivotItem x:Uid="PreviewItem">
+            <!--<PivotItem x:Uid="PreviewItem">
 
-            </PivotItem>
+            </PivotItem>-->
             <PivotItem x:Uid="AboutItem">
-
+                <StackPanel Orientation="Vertical">
+                    <TextBlock x:Uid="AppTitleBlock" FontSize="30"></TextBlock>
+                    <Frame Margin="12"></Frame>
+                    <HyperlinkButton x:Uid="Author" FontSize="15" VerticalAlignment="Center" NavigateUri="http://www.chenguanzhou.com"></HyperlinkButton>
+                    <HyperlinkButton x:Uid="EmailToMe" FontSize="15" NavigateUri="mailto://chenguanzhou123@163.com"></HyperlinkButton>
+                </StackPanel>
             </PivotItem>
         </Pivot>
     </Grid>

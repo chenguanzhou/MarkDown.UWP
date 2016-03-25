@@ -2,8 +2,28 @@
     http://www.oschina.net/question/124879_76399
 */
 
-html { font-size: 1rem; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+html { /*font-size: 1rem;*/ overflow-y: scroll;  }
  
+html {
+  font-size: 12px;
+}
+pre{
+  font-size: 1rem;
+}
+@media screen and (min-width: 32rem) and (max-width: 48rem) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  html {
+    font-size: 16px;
+  }
+    pre{
+  font-size: 1.6rem;
+}
+}
 body{
     color:#444;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11,7 +31,7 @@ body{
     /*line-height:2rem;*/
     /*padding:1rem;*/
     margin:auto;
-    max-width:42rem;
+    max-width:50rem;
     background:#fefefe;
 }
  
@@ -21,32 +41,32 @@ h1, h2, h3, h4, h5, h6 {
  
 h1 {
     color: #000000;
-    font-size: 2rem;
+    font-size: 3.2rem;
 }
  
 h2 {
     border-bottom: 2px solid #CCCCCC;
     color: #000000;
-    font-size: 1.7rem;
+    font-size: 2.4rem;
 }
  
 h3 {
     border-bottom: 2px solid #CCCCCC;
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
  
 h4 {
-    font-size: 1.33rem;
+    font-size: 1.414rem;
 }
  
 h5 {
-    font-size: 1.16rem;
+    font-size: 1.121rem;
 }
  
 h6 {
     color: #777777;
     background-color: inherit;
-    font-size: 1.16rem;
+    font-size: .88rem;
 }
  
 hr {

@@ -17,6 +17,7 @@
     <!--<link rel="stylesheet" href="codemirror/addon/dialog/dialog.css">-->
     <link rel="stylesheet" href="codemirror/addon/display/fullscreen.css">
     <link rel="stylesheet" href="codemirror/addon/scroll/simplescrollbars.css">
+    <link rel="stylesheet" href="codemirror/theme/monokai.css">
     <!--<style type="text/css">
         .CodeMirror{
             font-family: 'sans-serif'
@@ -54,6 +55,10 @@
         myCodeMirror.on("scroll", function () {
             window.external.notify("scroll");
         })
+
+        var setTheme = function (theme) {
+            myCodeMirror.setOption("theme",theme);
+        }
 
         var setContent = function (content) {
             myCodeMirror.doc.setValue(content)

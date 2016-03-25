@@ -160,8 +160,9 @@
     <Content Include="codemirror\lib\font.css" />
     <Content Include="codemirror\mode\markdown\markdown.js" />
     <None Include="Package.StoreAssociation.xml" />
-    <Content Include="css\Default.mobile.css" />
+    <Content Include="codemirror\theme\monokai.css" />
     <Content Include="css\Default.css" />
+    <Content Include="css\Retro.css" />
     <Content Include="highlighting.js\highlight.js" />
     <Content Include="highlighting.js\styles\agate.css" />
     <Content Include="highlighting.js\styles\androidstudio.css" />

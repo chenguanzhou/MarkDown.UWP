@@ -61,24 +61,26 @@ namespace MarkDown.UWP.ViewModel
             useLightTheme = value;
             RaisePropertyChanged("UseLightTheme");
             ApplicationData.Current.LocalSettings.Values["UseLightTheme"] = useLightTheme;
-            var dlg = new MessageDialog("restart by hand");
+
+            MessageDialog dlg;
             if (MainViewModel.IsDesktopPlatform)
             {
-                dlg.Content = MainViewModel.ResourceLoader.GetString("EffectAfterRestart");
-                dlg.Commands.Add(new UICommand("restart", async cmd =>
+                dlg = new MessageDialog(MainViewModel.ResourceLoader.GetString("EffectAfterRestart"), MainViewModel.ResourceLoader.GetString("NeedToRestart"));
+                dlg.Commands.Add(new UICommand(MainViewModel.ResourceLoader.GetString("Restart"), async cmd =>
                 {
                     await ((App)App.Current).Restart();
                 }));
             }
             else
             {
-                dlg.Commands.Add(new UICommand("exit app", async cmd =>
+                dlg = new MessageDialog(MainViewModel.ResourceLoader.GetString("EffectAfterRestart4Mobile"),MainViewModel.ResourceLoader.GetString("NeedToRestart") );
+                dlg.Commands.Add(new UICommand(MainViewModel.ResourceLoader.GetString("Exit"), async cmd =>
                 {
                     await ViewModelLocator.Main.BackUp();
                     ((App)App.Current).Exit();
                 }));
             }
-            dlg.Commands.Add(new UICommand("cancel"));
+            dlg.Commands.Add(new UICommand(MainViewModel.ResourceLoader.GetString("Cancel")));
             await dlg.ShowAsync();
         }
     }

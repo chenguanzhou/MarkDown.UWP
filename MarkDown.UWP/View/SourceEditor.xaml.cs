@@ -25,6 +25,7 @@ namespace MarkDown.UWP
         public SourceEditor()
         {
             this.InitializeComponent();
+            sourceEditor.NavigationCompleted += SourceEditor_NavigationCompleted;
         }
 
         public bool IsLoaded { get; set; } = false;
@@ -75,6 +76,15 @@ namespace MarkDown.UWP
         {
             var ret = await sourceEditor.InvokeScriptAsync("getScrollRatio", null);
             ScrollRatio = double.Parse(ret);
+        }
+
+        private async void SourceEditor_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            string theme = "default";
+            if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") && !(bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"])
+                theme = "monokai";
+
+            await sender.InvokeScriptAsync("setTheme", new string[] { theme });
         }
 
         /// <summary>
