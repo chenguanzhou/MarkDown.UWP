@@ -11,8 +11,6 @@ namespace MarkDown.UWP
 {
 	public class MarkDownProcessor
 	{
-		private object typeStr;
-
 		public async Task<string> MD2HTML(string MarkdownContent, bool IsMobile) =>
 			await Task.Run(async () =>
 			{
