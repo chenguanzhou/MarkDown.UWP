@@ -22,6 +22,7 @@
             <controls:HamburgerMenuButton x:Uid="NewButton" Icon="NewFolder" Command="{Binding NewCommand}"/>
             <controls:HamburgerMenuButton x:Uid="OpenButton" Icon="OpenLocal" Command="{Binding OpenCommand}"/>
             <controls:HamburgerMenuButton x:Uid="SaveButton" Icon="Save" Command="{Binding SaveCommand}"/>
+			<controls:HamburgerMenuButton x:Uid="ExportButton" Icon="Download" Command="{Binding ExportCommand}"/>
             <controls:HamburgerMenuButton x:Uid="ShowPreviewButton" x:Name="ShowPreviewButton" Icon="Sync" IsChecked="{Binding IsShowPreview,Mode=TwoWay}" Click="ShowPreviewButton_Click"></controls:HamburgerMenuButton>
         </StackPanel>
 

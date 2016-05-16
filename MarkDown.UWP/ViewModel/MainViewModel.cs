@@ -204,8 +204,6 @@ namespace MarkDown.UWP.ViewModel
             }
         }
 
-
-
         #region ShowPreview
         private string isNarrowState = "NarrowState";
         public string NarrowState
@@ -275,6 +273,7 @@ namespace MarkDown.UWP.ViewModel
         }
 
         #endregion
+
         #region Search
 
         public string searchText = "";
@@ -380,7 +379,6 @@ namespace MarkDown.UWP.ViewModel
                 await Open(file);
         }
 
-
         public async Task Open(StorageFile file = null)
         {
             if (file == null)
@@ -451,6 +449,29 @@ namespace MarkDown.UWP.ViewModel
             await FileIO.WriteBytesAsync(file, bytes);
         }
 
-        #endregion
-    }
+
+		public ICommand ExportCommand => new RelayCommand(async () =>
+		{
+			await Export();
+		});
+
+		private async Task<bool> Export()
+		{
+			var picker = new FileSavePicker();
+			picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+			picker.FileTypeChoices.Add(ResourceLoader.GetString("HTMLDocument"), new List<string>() { ".htm", ".html" });
+			picker.SuggestedFileName = DocumentTitle.Substring (0, DocumentTitle.IndexOf ('.')) + ".htm";
+			StorageFile file = await picker.PickSaveFileAsync();
+
+			if (file == null)
+				return false;
+
+			var bytes = FileEncoding.GetBytes(PreviewHTML);
+			await FileIO.WriteBytesAsync(file, bytes);
+
+			return true;
+		}
+
+		#endregion
+	}
 }
