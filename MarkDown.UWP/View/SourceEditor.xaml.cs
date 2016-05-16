@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -51,21 +52,44 @@ namespace MarkDown.UWP
 
         private async void srcView_ScriptNotify(object sender, NotifyEventArgs e)
         {
-            if (e.Value == "change")
-            {
-                OnCodeContentChanged();
-            }
-            else if (e.Value == "scroll")
-            {
-                OnScrollChanged();
-            }
-            else
-            {
-                await new MessageDialog(e.Value).ShowAsync();
-            }
+			switch (e.Value)
+			{
+			case "change":
+				OnCodeContentChanged();
+				break;
+
+			case "scroll":
+				OnScrollChanged();
+				break;
+
+			case "save":
+				ViewModel.ViewModelLocator.Main.SaveCommand.Execute(null);
+				break;
+
+			case "open":
+				ViewModel.ViewModelLocator.Main.OpenCommand.Execute(null);
+				break;
+
+			case "new":
+				ViewModel.ViewModelLocator.Main.NewCommand.Execute(null);
+				break;
+
+			case "find":
+				elemSearchBox.Focus(FocusState.Pointer);
+				break;
+
+			case "replace":
+				// Todo: find a way to expend cmd bar
+				elemSearchBox.Focus(FocusState.Pointer);
+				break;
+
+			default:
+				await new MessageDialog(e.Value).ShowAsync();
+				break;
+			}
         }
 
-        private async void OnCodeContentChanged()
+		private async void OnCodeContentChanged()
         {
             UpdateToHtml = false;
             CodeContent = await sourceEditor.InvokeScriptAsync("getContent", null);
@@ -190,10 +214,10 @@ namespace MarkDown.UWP
             set { SetValue(IsLineWrappingProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for the LineWrapping binding. 
-        /// </summary>
-        public static DependencyProperty IsShowLineNumberProperty =
+		/// <summary>
+		/// DependencyProperty for the LineNumber binding. 
+		/// </summary>
+		public static DependencyProperty IsShowLineNumberProperty =
             DependencyProperty.Register("IsShowLineNumber", typeof(bool), typeof(SourceEditor),
             new PropertyMetadata(default(bool), async (obj, args) =>
             {
@@ -202,19 +226,19 @@ namespace MarkDown.UWP
                     await editor.sourceEditor.InvokeScriptAsync("setShowLineNumber", new string[] { editor.IsShowLineNumber ? "true" : "" });
             }));
 
-        /// <summary>
-        /// Provide access to the LineWrapping.
-        /// </summary>
-        public bool IsShowLineNumber
+		/// <summary>
+		/// Provide access to the LineNumber.
+		/// </summary>
+		public bool IsShowLineNumber
         {
             get { return (bool)GetValue(IsShowLineNumberProperty); }
             set { SetValue(IsShowLineNumberProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for the LineWrapping binding. 
-        /// </summary>
-        public static DependencyProperty StyleActiveLineProperty =
+		/// <summary>
+		/// DependencyProperty for the ActiveLine binding. 
+		/// </summary>
+		public static DependencyProperty StyleActiveLineProperty =
             DependencyProperty.Register("StyleActiveLine", typeof(bool), typeof(SourceEditor),
             new PropertyMetadata(default(bool), async (obj, args) =>
             {
@@ -223,10 +247,10 @@ namespace MarkDown.UWP
                     await editor.sourceEditor.InvokeScriptAsync("setStyleActiveLine", new string[] { editor.StyleActiveLine ? "true" : "" });
             }));
 
-        /// <summary>
-        /// Provide access to the LineWrapping.
-        /// </summary>
-        public bool StyleActiveLine
+		/// <summary>
+		/// Provide access to the ActiveLine.
+		/// </summary>
+		public bool StyleActiveLine
         {
             get { return (bool)GetValue(StyleActiveLineProperty); }
             set { SetValue(StyleActiveLineProperty, value); }
