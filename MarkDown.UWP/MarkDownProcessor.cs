@@ -55,7 +55,7 @@ namespace MarkDown.UWP
 			var cssStr = css == null ? "" : string.Join("\n", css.Select(s => $"<style type=\"text/css\">\n{s}\n</style>"));
 			var jsStr = js == null ? "" : string.Join("\n", js.Select(s => $"<script>\n{s}\n</script>"));
 			var jstypeStr = "\"text/javascript\"";
-			var mjtypeStr = "\"text / x - mathjax - config\"";
+			var mjtypeStr = "\"text/x-mathjax-config\"";
 			var jssrcStr = "\"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML\"";
 			var mjconfigStr = "{ tex2jax: { inlineMath: [['$', '$'], ['\\(','\\)']]} }";
 var html = 

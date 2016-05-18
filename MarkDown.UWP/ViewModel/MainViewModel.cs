@@ -460,7 +460,10 @@ namespace MarkDown.UWP.ViewModel
 			var picker = new FileSavePicker();
 			picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
 			picker.FileTypeChoices.Add(ResourceLoader.GetString("HTMLDocument"), new List<string>() { ".htm", ".html" });
-			picker.SuggestedFileName = DocumentTitle.Substring (0, DocumentTitle.IndexOf ('.')) + ".htm";
+			if (DocumentTitle.Contains("."))
+				picker.SuggestedFileName = DocumentTitle.Substring(0, DocumentTitle.IndexOf('.')) + ".htm";
+			else
+				picker.SuggestedFileName = DocumentTitle + ".htm";
 			StorageFile file = await picker.PickSaveFileAsync();
 
 			if (file == null)
