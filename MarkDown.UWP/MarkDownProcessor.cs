@@ -15,26 +15,38 @@ namespace MarkDown.UWP
 			await Task.Run(async () =>
 			{
 				var body = md2body(MarkdownContent);
+				List<string> js_list = new List<string>(), css_list = new List<string>();
 
 				Windows.ApplicationModel.Package package = Windows.ApplicationModel.Package.Current;
 
-				StorageFolder highlightJSFolder = await package.InstalledLocation.GetFolderAsync("highlighting.js");
-				var highlightJSFile = await highlightJSFolder.GetFileAsync("highlight.js");
-				var js = await FileIO.ReadTextAsync(highlightJSFile);
-
-				var highlightJSCSSFile = await (await highlightJSFolder.GetFolderAsync("styles")).GetFileAsync("default.css");
-				var js_css = await FileIO.ReadTextAsync(highlightJSCSSFile);
-
+				// Markdown CSS
 				var cssFolder = await package.InstalledLocation.GetFolderAsync("css");
-
 				string fileName = "Default.css";
-				if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") && !(bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"])
+				if (ApplicationData.Current.LocalSettings.Values.Keys.Contains("UseLightTheme") &&
+					!(bool)ApplicationData.Current.LocalSettings.Values["UseLightTheme"])
 					fileName = "Retro.css";
 				var cssFile = await cssFolder.GetFileAsync(fileName);
 				var css = await FileIO.ReadTextAsync(cssFile);
+				css_list.Add(css);
 
+				// Highlight JS/CSS
+				if (body.Contains("<pre><code class=\"language-"))
+				{
+					StorageFolder highlightJSFolder = await package.InstalledLocation.GetFolderAsync("highlighting.js");
+					var highlightJSFile = await highlightJSFolder.GetFileAsync("highlight.js");
+					var js = await FileIO.ReadTextAsync(highlightJSFile);
+					js_list.Add(js);
+					js_list.Add("hljs.initHighlightingOnLoad();");
 
-				return merge(body, new string[] { js_css, css }, new string[] { js, "hljs.initHighlightingOnLoad();" });
+					var highlightJSCSSFile = await (await highlightJSFolder.GetFolderAsync("styles")).GetFileAsync("github.css");
+					var js_css = await FileIO.ReadTextAsync(highlightJSCSSFile);
+					css_list.Add(js_css);
+				}
+
+				return merge(
+					body,
+					css_list.Count != 0 ? css_list.ToArray() : null,
+					js_list.Count != 0 ? js_list.ToArray() : null);
 			});
 
 		private string md2body(string src)
@@ -53,20 +65,17 @@ namespace MarkDown.UWP
 		private string merge(string body, string[] css = null, string[] js = null)
 		{
 			var cssStr = css == null ? "" : string.Join("\n", css.Select(s => $"<style type=\"text/css\">\n{s}\n</style>"));
-			var jsStr = js == null ? "" : string.Join("\n", js.Select(s => $"<script>\n{s}\n</script>"));
-			var jstypeStr = "\"text/javascript\"";
-			var mjtypeStr = "\"text/x-mathjax-config\"";
-			var jssrcStr = "\"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML\"";
-			var mjconfigStr = "{ tex2jax: { inlineMath: [['$', '$'], ['\\(','\\)']]} }";
+			var jsStr = js == null ? "" : string.Join("\n", js.Select(s => $"<script async>\n{s}\n</script>"));
+
 var html = 
             $@"
 <html>
     <head>
         <meta http-equiv=""Content-Type"" content=""text/html; charset=utf-8"" />
-        <script type={mjtypeStr}>
-            MathJax.Hub.Config({mjconfigStr});
+        <script type=""text/x-mathjax-config"">
+            MathJax.Hub.Config({{ tex2jax: {{ inlineMath: [['$', '$'], ['\\(','\\)']]}} }});
         </script>
-		<script type={jstypeStr} async src={jssrcStr}></script>
+		<script async src=""https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML""></script>
 		<title>Markdown Preview</title>    
         {cssStr}
         {jsStr}
