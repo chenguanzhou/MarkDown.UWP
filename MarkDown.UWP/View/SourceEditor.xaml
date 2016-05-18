@@ -20,10 +20,10 @@
              NavigationStarting="sourceEditor_NavigationStarting"
              NavigationCompleted="sourceEditor_NavigationCompleted"/>
         
-        <CommandBar Grid.Row="1" IsSticky="True" ClosedDisplayMode="Compact" Background="{ThemeResource AppBarBackgroundThemeBrush}">
+        <CommandBar Name="cmdBar" Grid.Row="1" IsSticky="True" ClosedDisplayMode="Compact" Background="{ThemeResource AppBarBackgroundThemeBrush}">
             <CommandBar.Content>
                 <StackPanel>
-                    <TextBox x:Uid="SearchBox" Margin="8" MinWidth="120" MaxWidth="200" 
+                    <TextBox Name="elemSearchBox" x:Uid="SearchBox" Margin="8" MinWidth="120" MaxWidth="200" 
                              Text="{Binding SearchText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBox x:Uid="ReplaceBox" Margin="8,0,8,8" MinWidth="120" MaxWidth="200"
                              Text="{Binding ReplaceText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>

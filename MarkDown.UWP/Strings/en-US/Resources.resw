@@ -159,6 +159,9 @@
   <data name="Exit" xml:space="preserve">
     <value>Exit App</value>
   </data>
+  <data name="ExportButton.Content" xml:space="preserve">
+    <value>Export to HTML</value>
+  </data>
   <data name="FindNext.Label" xml:space="preserve">
     <value>Find Next</value>
   </data>
@@ -203,6 +206,9 @@ var bar = 0;
   </data>
   <data name="FontFamilyBox.Header" xml:space="preserve">
     <value>Font Family</value>
+  </data>
+  <data name="HTMLDocument" xml:space="preserve">
+    <value>HTML Document</value>
   </data>
   <data name="Light" xml:space="preserve">
     <value>Light</value>

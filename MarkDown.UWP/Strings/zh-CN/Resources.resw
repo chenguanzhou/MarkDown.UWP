@@ -159,6 +159,9 @@
   <data name="Exit" xml:space="preserve">
     <value>退出App</value>
   </data>
+  <data name="ExportButton.Content" xml:space="preserve">
+    <value>导出为HTML</value>
+  </data>
   <data name="FindNext.Label" xml:space="preserve">
     <value>查找下一个</value>
   </data>
@@ -208,6 +211,9 @@ var bar = 0;
   </data>
   <data name="FontFamilyBox.Header" xml:space="preserve">
     <value>字体</value>
+  </data>
+  <data name="HTMLDocument" xml:space="preserve">
+    <value>HTML 网页</value>
   </data>
   <data name="Light" xml:space="preserve">
     <value>浅色</value>

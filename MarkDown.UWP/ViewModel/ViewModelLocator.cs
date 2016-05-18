@@ -55,7 +55,7 @@ namespace MarkDown.UWP.ViewModel
         
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            // TODO: Clear the ViewModels
             ServiceLocator.Current.GetInstance<MainViewModel>().Cleanup();
         }
     }

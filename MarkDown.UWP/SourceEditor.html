@@ -45,7 +45,21 @@
 
         myCodeMirror.setOption("extraKeys", {
             "Enter": "newlineAndIndentContinueMarkdownList",
-            "Ctrl-F": "findPersistent"
+            "Ctrl-F": function () {
+            	window.external.notify("find");
+            },
+            "Ctrl-H": function () {
+            	window.external.notify("replace");
+            },
+            "Ctrl-S": function () {
+            	window.external.notify("save");
+            },
+            "Ctrl-O": function () {
+            	window.external.notify("open");
+            },
+            "Ctrl-N": function () {
+            	window.external.notify("new");
+            }
         });        
 
         myCodeMirror.on("change", function () {
